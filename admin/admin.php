@@ -5,12 +5,18 @@ session_start();
 if ($_SESSION['isAdmin']) {
         echo "Bienvenue admin " . $_SESSION['authUser'];
     }else {
-        echo "Vous n'êtes pas autorisé à vous connecter";
+        echo "Vous n'êtes pas autorisé à vous connecter. <br /> <a href='/admin/login.php'> se connecter</a>";
+        return;
     }
 
 
     $rqt=mysqli_query($link,"SELECT id, title, FK_adminuser, FK_category, date FROM post") or die( mysqli_error($link));
 ?>
+<div>
+  <a href="deconnexion.php">Déconnexion</a>
+  <br />
+<a href='../blog.php'> Voir le blog</a>
+</div>
 
 <div>
             <table>
@@ -28,9 +34,13 @@ if ($_SESSION['isAdmin']) {
                                 <td>".$post["title"]."</td>
                                 <td>".$post["FK_category"]."</td>
                                 <td>".$post["date"]."</td>
+                                <td><form action='suppress.php' method='post'><input type='checkbox' name='suppr[]' value=".$post['id']." /></td>
+                                <td><a href='update.php?id=".$post['id']."'>Modifier</a></td>
                             </tr>";
                     }
+                    echo"<tr><td></td><td></td><td></td><td></td><td><input type='submit' value='Supprimer' /></th><tr></table></form>"
                   ?>
+
             </table>
         </div>
         <div>

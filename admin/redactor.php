@@ -7,7 +7,7 @@
     session_start();
 
     if(!isset($_SESSION["isAdmin"]) || (isset($_SESSION["isAdmin"]) && !$_SESSION["isAdmin"])) {
-      echo "Unauthorized Access";
+      echo "Unauthorized Access.  <a href='login.php'> Connectez-vous.</a>";
       exit;
     }
 
@@ -54,6 +54,9 @@
         <title>Admin Article </title>
     </head>
     <body>
+        <a href='../blog.php'> Voir le blog</a>
+        <br />
+        <a href='admin.php'> Retour admin</a>
         <h1>Rédaction d'un article : </h1>
         <br/>
         <p> Vous êtes connecté en tant que <?php echo $_SESSION['authUser'] ?> </p>
@@ -62,7 +65,7 @@
                 <div>Choisissez la catégorie :</div>
                 <div>
                     <select id='listCategories'>
-                      <option value="" disabled selected>--Choisir une catégorie--</option>
+                      <option value='0' disabled selected>--Choisir une catégorie--</option>
                         <?php
                         for ($i=0;$categories=mysqli_fetch_assoc($rqt);$i++){
                           echo "<option value='".$categories['id']."'>".$categories['name']."</option>";
@@ -79,7 +82,7 @@
                    <input type='text' id="postTitle"></input>
               </div>
             </div>
-            <div><textarea name='content'></textarea></div>
+            <div><textarea id='content' name='content'></textarea></div>
         </div>
         <div>
         <button id="publish">Publier</button>
@@ -88,11 +91,17 @@
 
 
 
-
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
+ <script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
         <script>
-        CKEDITOR.replace('content');
+        ClassicEditor
+            .create( document.querySelector( '#content' ) )
+            .then( content => {
+                article = content; // Save for later use.
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
 
             // AJOUT DE CATEGORIES
             $('#addCategory').on('click', function(){
@@ -117,19 +126,30 @@
                 });
 
 
+
+console.log( $("#listCategories").val())
+
+
+
                 // PUBLICATION DE L'ARTICLE
                 $('#publish').on('click', function(){
-                $.ajax({
-                    method: "POST",
-                    data: {
-                      "post": CKEDITOR.instances.content.getData(),
-                      "title": $("#postTitle").val(),
-                       "category" : $("#listCategories").val()
-                    },
-                    success: function(){
-                       window.location.href = "admin.php";
-                    }
-                })
+                  if($('#postTitle').val() == '' || $("#listCategories option:selected").val() == 0){
+                    alert("Renseignez le titre et choisissez une catégorie")
+                  }
+                  else{
+                    $.ajax({
+                        method: "POST",
+                        data: {
+                          "post": article.getData(),
+                          "title": $("#postTitle").val(),
+                           "category" : $("#listCategories").val()
+                        },
+                        success: function(){
+                           window.location.href = "admin.php";
+                        }
+                    })
+                  }
+
                 });
 
         </script>

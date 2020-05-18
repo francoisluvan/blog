@@ -6,7 +6,7 @@ session_start();
 
 $id=$_GET['p'];
 
-    $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date FROM post INNER JOIN category ON post.id = category.id WHERE post.id = '$id'") or die( mysqli_error($link));
+    $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date FROM post INNER JOIN category ON post.FK_category = category.id WHERE post.id = '$id'") or die( mysqli_error($link));
 ?>
 <!DOCTYPE html>
 <html lang="en">

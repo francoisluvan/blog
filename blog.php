@@ -5,7 +5,7 @@ $link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se
 session_start();
 
 
-$rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date FROM post INNER JOIN category ON post.id = category.id ") or die( mysqli_error($link));
+$rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
 
 ?>
 <!DOCTYPE html>
@@ -14,6 +14,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
+  <a href='/admin/admin.php'> se connecter</a>
 <div class="container">
             <div class="row">
                 <div class="col-md-12">
