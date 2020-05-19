@@ -1,4 +1,6 @@
 <?php
+//Crée un utilisateur. SUPPRIMER CE FICHIER APRES UTILISATION
+
 $link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
 
     $password = password_hash("francois", PASSWORD_DEFAULT);

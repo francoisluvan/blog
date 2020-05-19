@@ -1,15 +1,16 @@
 
 
 <?php
-    // CONNEXION BASE DE DONNEES
-    $link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
 
     session_start();
 
     if(!isset($_SESSION["isAdmin"]) || (isset($_SESSION["isAdmin"]) && !$_SESSION["isAdmin"])) {
-      echo "Unauthorized Access.  <a href='login.php'> Connectez-vous.</a>";
+      echo "Accès non autorisé.  <a href='login.php'> Connectez-vous.</a>";
       exit;
     }
+
+    // CONNEXION BASE DE DONNEES
+    $link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
 
     // AJOUT DE CATEGORIES
     if (isset($_POST["name"])) {
@@ -30,7 +31,6 @@
        $title=$_POST['title'];
        $content=$_POST['post'];
        $category=$_POST['category'];
-       //On prend le nom de l'auteur et pas la foreign key id finalement
        $authorId = $_SESSION['authUser'];
        $date=date("Y-m-d H:i:s");
 
@@ -38,7 +38,7 @@
        $rqt=mysqli_query($link,"SELECT COUNT(*) FROM post");
        $row = mysqli_fetch_array($rqt);
        $id=$row[0]+1;
-
+       //Requête d'ajout de l'article dans la base de données
        mysqli_query($link,"INSERT INTO post(id, title, content, FK_category, FK_adminuser, date) VALUES ('$id','$title', '$content', '$category', '$authorId', '$date');");
    }
 
@@ -63,15 +63,15 @@
         <div>
             <div>
                 <div>Choisissez la catégorie :</div>
-                <div>
-                    <select id='listCategories'>
-                      <option value='0' disabled selected>--Choisir une catégorie--</option>
-                        <?php
-                        for ($i=0;$categories=mysqli_fetch_assoc($rqt);$i++){
-                          echo "<option value='".$categories['id']."'>".$categories['name']."</option>";
-                        }
-                        ?>
-                    </select>
+                <div id="choixcategory">
+                  <select id='listCategories'>
+                    <option value='0' disabled selected>--Choisir une catégorie--</option>
+                      <?php
+                      for ($i=0;$categories=mysqli_fetch_assoc($rqt);$i++){
+                        echo "<option value='".$categories['id']."'>".$categories['name']."</option>";
+                      }
+                      ?>
+                  </select>
                 </div>
                 <div>
                     Ajouter une nouvelle catégorie :
@@ -82,26 +82,18 @@
                    <input type='text' id="postTitle"></input>
               </div>
             </div>
-            <div><textarea id='content' name='content'></textarea></div>
+          <div><textarea id='content' name='content' style='display:none'></textarea></div>
         </div>
         <div>
         <button id="publish">Publier</button>
         </div>
 
 
-
-
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
- <script src="https://cdn.ckeditor.com/ckeditor5/19.0.0/classic/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
         <script>
-        ClassicEditor
-            .create( document.querySelector( '#content' ) )
-            .then( content => {
-                article = content; // Save for later use.
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
+        //Remplace le textarea par l'éditeur de texte ckeditor 4
+        CKEDITOR.replace( 'content' );
 
             // AJOUT DE CATEGORIES
             $('#addCategory').on('click', function(){
@@ -122,12 +114,10 @@
 
                         }
                       });
-                      window.location.reload();
+                      //Recharge uniquement le menu déroulant des catégories pour ajouter la catégorie sans refresh la page
+                      $('#choixcategory').load('http://blog/admin/redactor.php #listCategories');
                 });
 
-
-
-console.log( $("#listCategories").val())
 
 
 
@@ -140,7 +130,7 @@ console.log( $("#listCategories").val())
                     $.ajax({
                         method: "POST",
                         data: {
-                          "post": article.getData(),
+                          "post": CKEDITOR.instances.content.getData(),
                           "title": $("#postTitle").val(),
                            "category" : $("#listCategories").val()
                         },
@@ -151,7 +141,6 @@ console.log( $("#listCategories").val())
                   }
 
                 });
-
         </script>
     </body>
 </html>
