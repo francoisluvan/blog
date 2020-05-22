@@ -5,7 +5,7 @@
     session_start();
 
     if(!isset($_SESSION["isAdmin"]) || (isset($_SESSION["isAdmin"]) && !$_SESSION["isAdmin"])) {
-      echo "Accès non autorisé.  <a href='login.php'> Connectez-vous.</a>";
+      echo "Veuillez vous connecter.  <a href='login.php'> Connexion</a>";
       exit;
     }
 
@@ -85,7 +85,7 @@
           <div><textarea id='content' name='content' style='display:none'></textarea></div>
         </div>
         <div>
-        <button id="publish">Publier</button>
+        <button id="publish" onclick="stop()">Publier</button>
         </div>
 
 
@@ -121,6 +121,7 @@
 
 
 
+
                 // PUBLICATION DE L'ARTICLE
                 $('#publish').on('click', function(){
                   if($('#postTitle').val() == '' || $("#listCategories option:selected").val() == 0){
@@ -141,6 +142,24 @@
                   }
 
                 });
+
+
+                //Fonction warning si on quitte la page sans sauvegarder
+                var unsaved = true;
+
+                function showWindow(){
+                    if(unsaved){
+                        return "Voulez-vous vraiment quitter cette page? Les modifications non sauvegardées seront perdues";
+                    }
+                }
+
+                $('#publish').click(function(){
+                    unsaved = null;
+                });
+
+                window.onbeforeunload = showWindow;
+
+
         </script>
     </body>
 </html>

@@ -14,10 +14,14 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
   $id=$_GET['id'];
   //Récupère le contenu de l'article à modifier selon son id
   $sql = mysqli_query($link,"SELECT * FROM post WHERE id='$id'");
+  //Récupère le nom de la catégorie de l'article sélectionné
+  $requete = mysqli_query($link,"SELECT * FROM category INNER JOIN post ON post.FK_category = category.id WHERE post.id='$id'");
 
   // parcourt les données sous forme de tableau
   $data =  mysqli_fetch_array($sql);
+  $result =  mysqli_fetch_array($requete);
   }
+
 
 
   // AJOUT DE CATEGORIES
@@ -46,7 +50,6 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
      //requête pour enregistrer les modifications de l'article dans la base de données
      mysqli_query($link,"UPDATE post SET id='$id', title ='$title', content='$content', FK_category='$category', FK_adminuser='$authorId', date='$date' WHERE id='$id';");
  }
-
 ?>
 
 
@@ -66,8 +69,8 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
       <div>Choisissez la catégorie :</div>
       <div id='choixcategory'>
           <select id='listCategories'>
-            <option value="" disabled>--Choisir une catégorie--</option>
               <?php
+              echo "<option value='".$data['FK_category']."' selected style='display: none'>".$result['name']."</option>";
               for ($i=0;$categories=mysqli_fetch_assoc($rqt);$i++){
                 echo "<option value='".$categories['id']."'>".$categories['name']."</option>";
               }
@@ -84,7 +87,7 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
      </div>
      <br />
      <textarea name="content" placeholder="Contenu de l'article"> <?php echo $data['content'] ?></textarea><br />
-     <button id="publish"> enregistrer </button>
+     <button id="publish" onclick="setFormSubmitting()"> enregistrer </button>
    <br />
 
 
@@ -137,6 +140,24 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
        })
        }
        });
+
+
+       //Fonction warning si on quitte la page sans sauvegarder
+       var unsaved = true;
+
+       function showWindow(){
+           if(unsaved){
+               return "Voulez-vous vraiment quitter cette page? Les modifications non sauvegardées seront perdues";
+           }
+       }
+
+       $('#publish').click(function(){
+           unsaved = null;
+       });
+
+       window.onbeforeunload = showWindow;
+
+
    </script>
 
 

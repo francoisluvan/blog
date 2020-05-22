@@ -4,7 +4,7 @@ session_start();
 
 //Vérification des droits de connexion
 if(!isset($_SESSION["isAdmin"]) || (isset($_SESSION["isAdmin"]) && !$_SESSION["isAdmin"])) {
-  echo "Unauthorized Access.  <a href='login.php'> Connectez-vous.</a>";
+  echo "Vous devez vous connecter.  <a href='login.php'> Connexion.</a>";
   exit;
 }
 //Connexion à la base de données

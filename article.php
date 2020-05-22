@@ -2,11 +2,20 @@
 
 session_start();
 //Récupère l'id de l'article dans l'url
-$id=$_GET['p'];
+if(isset($_GET['p'])){
+  $id=$_GET['p'];
+}
+else
+{
+  echo "article introuvable";
+  exit;
+}
+
 //connexion base de données
 $link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
 //Récupère le contenu de l'article sélectionné
 $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date FROM post INNER JOIN category ON post.FK_category = category.id WHERE post.id = '$id'") or die( mysqli_error($link));
+
 
 ?>
 
