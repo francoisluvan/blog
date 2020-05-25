@@ -22,8 +22,9 @@
     $link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
     //Vérification du username et password renseignés par l'utilisateur
     if (isset($_POST["username"]) && isset($_POST["password"])) {
-        $username = $_POST["username"];
-        $password = $_POST["password"];
+        //real escape string() évite les injections sql
+        $username = mysqli_real_escape_string($link, $_POST["username"]);
+        $password = mysqli_real_escape_string($link, $_POST["password"]);
         //Récupère le password de la base de données en fonction du username renseigné
         $rqt=mysqli_query($link,"SELECT * FROM adminuser WHERE username = '$username'");
         //Lit le résultat de la requête dans un tableau
@@ -41,5 +42,5 @@
           echo 'mauvais identifiant ou mot de passe';
         }
     }
-    
+
 ?>
