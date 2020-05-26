@@ -88,11 +88,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="admin.php">Tableau de bord <span class="sr-only">(current)</span></a>
+              <li class="nav-item">
+                <a class="nav-link" href="admin.php">Tableau de bord <span class="sr-only"></span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../blog.php">Voir le blog</a>
+                <a class="nav-link" href="../blog.php" target="_blank">Voir le blog</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Catégories</a>
@@ -117,13 +117,13 @@
           <div class="sidebar-sticky" >
             <ul class="nav flex-column">
               <li class="nav-item mt-3">
-                <a class="nav-link active" href="admin.php">
+                <a class="nav-link" href="admin.php">
                   <span data-feather="home"></span>
-                  Tableau de bord <span class="sr-only">(current)</span>
+                  Tableau de bord <span class="sr-only"></span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href='../blog.php' class="nav-link">
+                <a href='../blog.php' class="nav-link"  target="_blank">
                   <span data-feather="file"></span>
                   Voir le blog
                 </a>

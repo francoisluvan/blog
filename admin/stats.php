@@ -1,34 +1,17 @@
 <?php
 
 session_start();
-$welcome = "Bienvenue " . $_SESSION['authUser'];
 
-//Vérification des droits de connexion
-if(!isset($_SESSION["isAdmin"]) || (isset($_SESSION["isAdmin"]) && !$_SESSION["isAdmin"])) {
-  echo "Vous devez vous connecter.  <a href='login.php'> Connexion.</a>";
-  exit;
-}
-//Connexion à la base de données
-$link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
-
-//Suppression des articles sélectionnés
-if(isset($_POST['suppr'])){
-    mysqli_query($link,"DELETE FROM post WHERE id IN (".implode(',', array_map('intval', $_POST['suppr'])).")");
-    if (mysqli_affected_rows($link)>0){
-    $msg = mysqli_affected_rows($link).' article(s) supprimé(s).';
-  }
-}
-else{
-  $fail = "aucun article sélectionné";
-}
+//Vérification de connexion
+if (isset($_SESSION['isAdmin'])) {
+        $welcome = "Bienvenue " . $_SESSION['authUser'];
+    }else {
+        echo "Veuillez vous connecter. <br /> <a href='/admin/login.php'> connexion</a>";
+        return;
+    }
 
 
 ?>
-
-
-
-
-
 
 
 
@@ -41,7 +24,7 @@ else{
     <meta name="author" content="">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>articles supprimés</title>
+    <title>Blog admin</title>
 
     <!-- Custom styles for this template -->
     <link href="blogadmin.css" rel="stylesheet">
@@ -68,7 +51,7 @@ else{
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item   active">
+              <li class="nav-item">
                 <a class="nav-link" href="admin.php">Tableau de bord <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
@@ -77,7 +60,7 @@ else{
               <li class="nav-item">
                 <a class="nav-link" href="categories.php">Catégories</a>
               </li>
-              <li class="nav-item ">
+              <li class="nav-item  active">
                 <a class="nav-link" href="stats.php">Stats</a>
               </li>
             </ul>
@@ -97,7 +80,7 @@ else{
           <div class="sidebar-sticky" >
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link   active" href="admin.php">
+                <a class="nav-link " href="admin.php">
                   <span data-feather="home"></span>
                   Tableau de bord <span class="sr-only">(current)</span>
                 </a>
@@ -115,7 +98,7 @@ else{
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="stats.php">
+                <a class="nav-link  active" href="stats.php">
                   <span data-feather="bar-chart-2"></span>
                   Stats
                 </a>
@@ -130,18 +113,7 @@ else{
 
 
 
-          <p><?php if (isset($msg)){
-                      echo $msg;
-                  }
-                  else if (isset($fail)){
-                    echo $fail;
-                  }
-                  else {
-                    echo 'une erreur est survenue.';
-                  }
-              ?>
-          </p>
-          <a href='admin.php'> Retour aux articles</a>
+          <h2>Page en construction</h2>
 
 
 

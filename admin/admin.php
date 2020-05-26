@@ -28,9 +28,6 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
 
     <title>Blog admin</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="blogadmin.css" rel="stylesheet">
   </head>
@@ -60,13 +57,13 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
                 <a class="nav-link" href="#">Tableau de bord <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="../blog.php">Voir le blog</a>
+                <a class="nav-link" href="../blog.php"  target="_blank">Voir le blog</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Catégories</a>
+                <a class="nav-link" href="categories.php">Catégories</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Stats</a>
+                <a class="nav-link" href="stats.php">Stats</a>
               </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -91,19 +88,19 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
                 </a>
               </li>
               <li class="nav-item">
-                <a href='../blog.php' class="nav-link">
+                <a href='../blog.php' class="nav-link"  target="_blank">
                   <span data-feather="file"></span>
                   Voir le blog
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="categories.php">
                   <span data-feather="file-text"></span>
                   Catégories
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="stats.php">
                   <span data-feather="bar-chart-2"></span>
                   Stats
                 </a>
