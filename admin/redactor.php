@@ -34,13 +34,10 @@
        $category = intval($_POST['category']);
        $authorId = mysqli_real_escape_string($link,$_SESSION['authUser']);
        $date = date("Y-m-d H:i:s");
+       $image = 'http://blog/admin/uploads/1-image-pardefaut.jpg';
 
-       //Pour donner un id à l'article, on compte le nombre de lignes du tableau contenant les articles et on ajoute 1
-       $rqt=mysqli_query($link,"SELECT COUNT(*) FROM post");
-       $row = mysqli_fetch_array($rqt);
-       $id=$row[0]+1;
        //Requête d'ajout de l'article dans la base de données
-       mysqli_query($link,"INSERT INTO post(id, title, content, FK_category, FK_adminuser, date) VALUES ('$id','$title', '$content', '$category', '$authorId', '$date');");
+       mysqli_query($link,"INSERT INTO post(title, content, FK_category, FK_adminuser, date, image) VALUES ('$title', '$content', '$category', '$authorId', '$date', '$image');");
    }
 
 
@@ -74,7 +71,7 @@
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Bison Factory</a>
       <input class="form-control form-control-dark w-50 d-none d-md-block" type="text" placeholder="Recherche" aria-label="Search">
       <div class="mx-auto">
-        <em> <?php echo $welcome ?> </em>
+        <em> <?php echo $welcome?> </em>
       </div>
       <div class="mx-auto">
           <a class="nav-link" href="deconnexion.php">Déconnexion</a>

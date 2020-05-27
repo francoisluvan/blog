@@ -12,7 +12,8 @@ if (isset($_SESSION['isAdmin'])) {
 
 //Récupère les articles dans la base de données
 $link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
-$rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_category, category.name, date FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
+$rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_category, category.name, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
+
 
 ?>
 
@@ -34,7 +35,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
 
   <body>
 
-
+    <!-- Menu -->
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Bison Factory</a>
       <input class="form-control form-control-dark w-50 d-none d-md-block" type="text" placeholder="Recherche" aria-label="Search">
@@ -75,7 +76,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
   </nav>
 
 
-
+    <!-- Menu latéral -->
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -114,32 +115,47 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
           <br />
 
 
-
+          <!-- Tableau -->
           <h2>Articles du blog</h2>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
                       <thead>
                         <tr>
-                          <th></th>
                           <th>Auteur</th>
                           <th>Titre</th>
                           <th>Catégorie</th>
                           <th>Date</th>
+                          <th>Image de couverture</th>
                         </tr>
                       </thead>
                       <?php
                         for ($i=0;$post = mysqli_fetch_array($rqt);$i++) {
                             echo "<tr>
-                                    <td><form action='suppress.php' method='post' onSubmit=\"return confirm('Les articles sélectionnés seront supprimés définitivement');\" ><input type='checkbox' name='suppr[]' value=".$post['id']." /></td>
                                     <td>".$post["FK_adminuser"]."</td>
                                     <td>".$post["title"]."</td>
                                     <td>".$post["name"]."</td>
                                     <td>".$post["date"]."</td>
 
+                                    <td>
+                                      <form action='upload.php' method='post' enctype='multipart/form-data'>
+
+
+                                        <div class='form-group'>
+                                          <input type='hidden' name='articleid' value=".$post['id']."/>
+                                          <input type='file' class='form-control-file' name='fileToUpload' id='fileToUpload'>
+                                          <input type='submit' value='Enregistrer' name='submit'/>
+                                          <br/>
+                                          <p> Image actuelle :".$post['image']."
+                                        </div>
+                                      </form>
+                                    </td>
+
                                     <td><a href='update.php?id=".$post['id']."'>Éditer</a></td>
+                                    <td><form action='suppress.php' method='post'  onSubmit=\"return confirm('Cet article sera supprimé définitivement');\" >
+                                    <input type='hidden' name='suppr' value=".$post['id']."/>
+                                    <td><input class='btn btn-sm btn-danger' id='envoi' type='submit' value='Supprimer' /></td></form>
                                 </tr>";
                         }
-                        echo"<tr><td><input class='btn btn-danger' id='envoi' type='submit' value='Supprimer' /></td></tr></form>"
                       ?>
               </table>
 
@@ -162,6 +178,12 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
       feather.replace()
+      var fileToUpload;
+
+      $('fileToUpload').click(function() {
+             fileToUpload = $(this).attr('for');
+             $('#'+fileToUpload).trigger('click');
+      });
     </script>
 
   </body>

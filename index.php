@@ -4,8 +4,8 @@ session_start();
 //connexion base de données
 $link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
 //Récupère les données des articles dans la base de données
-$rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
-$rqt2=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
+$rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
+$rqt2=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
 
 ?>
 
@@ -139,7 +139,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, categor
 
                       <div class="col-md-4 col-sm-6 blog-item my-4" style="height:80%">
                         <a class="blog-link stretched-link" style="text-decoration:none" href="article.php?p='.$post["id"].'">
-                          <img class="img-fluid" src="images/blog/06-thumbnail.jpg" alt="">
+                          <img class="img-fluid" src="'.$post['image'].'" alt="">
                       <div class="mb-4">
                         <div class="blog-caption">
                           <h4 style="color:black">'.$post["title"].'</h4>
@@ -164,7 +164,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, categor
                     <div class="carousel-item">
                       <div class="col-md-4 col-sm-6 blog-item my-4" style="height:80%">
                         <a class="blog-link stretched-link" style="text-decoration:none" href="article.php?p='.$post2["id"].'">
-                          <img class="img-fluid" src="images/blog/06-thumbnail.jpg" alt="">
+                          <img class="img-fluid" src="'.$post2['image'].'" alt="">
                       <div class="mb-4">
                         <div class="blog-caption">
                           <h4 style="color:black">'.$post2["title"].'</h4>
@@ -264,7 +264,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, categor
           <div class="col-md-4">
             <ul class="list-inline quicklinks">
               <li class="list-inline-item">
-              <a href='/admin/admin.php'> se connecter</a>
+              <a href='/admin/login.php'> se connecter</a>
               </li>
               <li class="list-inline-item">
                 <a href="#">Privacy Policy</a>

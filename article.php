@@ -14,7 +14,7 @@ else
 //connexion base de données
 $link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
 //Récupère le contenu de l'article sélectionné
-$rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date FROM post INNER JOIN category ON post.FK_category = category.id WHERE post.id = '$id'") or die( mysqli_error($link));
+$rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id WHERE post.id = '$id'") or die( mysqli_error($link));
 
 
 ?>
@@ -66,13 +66,17 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category
 
 
         <!-- Header -->
-        <header class="masthead" style="max-height:500px">
+    <?php
+      for ($i=0;$post = mysqli_fetch_array($rqt);$i++) {
+            echo
+        '<header class="masthead" style="max-height:500px;background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),  url('.$post["image"].');  background-repeat: no-repeat;
+          background-attachment: scroll;
+          background-position: center ;
+          background-size: cover;">
           <div class="container">
             <div class="intro-text">
               <div class="intro-heading text-uppercase">
-                 <?php
-                    for ($i=0;$post = mysqli_fetch_array($rqt);$i++) {
-                        echo $post["title"].'
+                  '.$post["title"].'
               <div class="intro-lead-in">Sous-titre</div>
           </div>
         </header>
@@ -133,7 +137,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category
               <div class="col-md-4">
                 <ul class="list-inline quicklinks">
                   <li class="list-inline-item">
-                  <a href='/admin/admin.php'> se connecter</a>
+                  <a href='/admin/login.php'> se connecter</a>
                   </li>
                   <li class="list-inline-item">
                     <a href="#">Privacy Policy</a>

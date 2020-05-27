@@ -2,33 +2,74 @@
 
 session_start();
 $welcome = "Bienvenue " . $_SESSION['authUser'];
-
+//Connexion base de données
+$link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
 //Vérification des droits de connexion
 if(!isset($_SESSION["isAdmin"]) || (isset($_SESSION["isAdmin"]) && !$_SESSION["isAdmin"])) {
   echo "Vous devez vous connecter.  <a href='login.php'> Connexion.</a>";
   exit;
 }
-//Connexion à la base de données
-$link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
 
-//Suppression des articles sélectionnés
+$target_dir = "uploads/";
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-if(isset($_POST['suppr'])){
-  $id=$_POST['suppr'];
-    mysqli_query($link,"DELETE FROM post WHERE id='$id'");
-    $msg =  'article supprimé';
+// Check if image file is a actual image or fake image
+if(isset($_POST["submit"]) && $_FILES["fileToUpload"]["tmp_name"] != "") {
+  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+  if($check !== false) {
+    $uploadOk = 1;
+  } else {
+    $false = "Nom de fichier incorrect.";
+    $uploadOk = 0;
+  }
 }
-else{
-  $fail = "une erreur est survenue";
 
+
+
+// Check if file already exists
+// if (file_exists($target_file)) {
+//   $exist = "Ce fichier existe déjà.";
+//   $uploadOk = 0;
+// }
+
+// Check file size
+if ($_FILES["fileToUpload"]["size"] > 5000000) {
+  $taille = "Fichier trop volumineux. Taille maximum : 5mb.";
+  $uploadOk = 0;
 }
+
+// Allow certain file formats
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" ) {
+  $format = "Format incorrect. Seuls les fichiers JPG, JPEG, PNG & GIF acceptés.";
+  $uploadOk = 0;
+}
+
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+  $fail = "Le fichier n'a pas pu être enregistré.";
+// if everything is ok, try to upload file
+} else {
+  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+    $success = "Le fichier suivant a été enregistré : ". basename( $_FILES["fileToUpload"]["name"]);
+  } else {
+    echo "Une erreur est survenue.";
+  }
+}
+
+// AJOUT D'IMAGE
+if(isset($_POST['articleid']) && (isset($success))){
+      $id=intval($_POST['articleid']);
+      $image = 'http://blog/admin/uploads/'.$_FILES["fileToUpload"]["name"];
+      mysqli_query($link,"UPDATE post SET image='$image' WHERE id='$id'");
+  }
+  else "une erreur est survenue";
+
 
 
 ?>
-
-
-
-
 
 
 
@@ -55,7 +96,7 @@ else{
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Bison Factory</a>
       <input class="form-control form-control-dark w-50 d-none d-md-block" type="text" placeholder="Recherche" aria-label="Search">
       <div class="mx-auto">
-        <em> <?php echo $welcome ?> </em>
+        <em> <?php echo $welcome?> </em>
       </div>
       <div class="mx-auto">
           <a class="nav-link" href="deconnexion.php">Déconnexion</a>
@@ -131,11 +172,23 @@ else{
 
 
 
-          <p><?php if (isset($msg)){
-                      echo $msg;
+          <p><?php if (isset($false)){
+                    echo $false;
+                  }
+                  else if ($_FILES["fileToUpload"]["tmp_name"] == "") {
+                    echo 'aucun fichier';
+                  }
+                  else if (isset($format)){
+                    echo $format;
+                  }
+                  else if (isset($taille)){
+                    echo $taille;
                   }
                   else if (isset($fail)){
                     echo $fail;
+                  }
+                  else if (isset($success)){
+                    echo $success;
                   }
                   else {
                     echo 'une erreur est survenue.';
@@ -144,7 +197,7 @@ else{
           </p>
           <a href='admin.php'> Retour aux articles</a>
 
-
+     <!-- <a href='uploads/".$_FILES["fileToUpload"]["name"]."'>Lien</a>"; -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
