@@ -136,17 +136,20 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
                                     <td>".$post["name"]."</td>
                                     <td>".$post["date"]."</td>
 
-                                    <td>
-                                      <form action='upload.php' method='post' enctype='multipart/form-data'>
+                                    <td style='display:block;max-width: 300px; width:200px;'>
+                                      <form action='upload.php' method='post' enctype='multipart/form-data' style='max-width:300px; width:280px;'>
 
 
-                                        <div class='form-group'>
                                           <input type='hidden' name='articleid' value=".$post['id']."/>
-                                          <input type='file' class='form-control-file' name='fileToUpload' id='fileToUpload'>
-                                          <input type='submit' value='Enregistrer' name='submit'/>
-                                          <br/>
-                                          <p> Image actuelle :".$post['image']."
-                                        </div>
+                                            <div id='saveimage".$post['id']."' class='savediv'>
+                                              <label id='".$post['id']."' for='fileToUpload".$post['id']."' class='label-file btn btn-sm btn-dark'>
+                                                choisir image
+                                              </label>
+                                                <input type='file' class='input-file' name='fileToUpload' id='fileToUpload".$post['id']."' style='display:none'/>
+                                                  <div id='divfileToUpload".$post['id']."' class='filename'>
+                                                  </div>
+                                            </div>
+                                          <p class='currentimg' style='color:green; font-style:italic;display:block;max-width: 250px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'> Image actuelle :<br/>".$post['image']."
                                       </form>
                                     </td>
 
@@ -177,13 +180,42 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
+      //icones menu
       feather.replace()
-      var fileToUpload;
 
-      $('fileToUpload').click(function() {
-             fileToUpload = $(this).attr('for');
-             $('#'+fileToUpload).trigger('click');
+      //afficher nom fichier upload image
+
+
+      $('input[type="file"]').change(function(e) {
+        var id = this.id;
+                      var msgimage = e.target.files[0].name;
+                      $('#div'+id).append('<p class="msgimg" style="color:red"> Voulez-vous enregistrer la nouvelle image ? ('+msgimage+')</p>');
+                    });
+
+
+      //afficher bouton enregistrer image
+      $('.label-file').one('click', function(){
+        var id = this.id;
+        var savebtn = "<input  class='save btn btn-sm btn-success' type='submit' value='Enregistrer' name='submit'/>";
+        var cancelbtn = "<input id='Upload"+id+"' class='cancel btn btn-sm btn-danger' value='annuler' type='button'/>";
+        $('#divfileToUpload'+id).append("<div class='buttons'>"+savebtn + " "+ cancelbtn + "</div>");
+
       });
+
+      //annuler upload image
+      $(".filename").on('click', '.cancel', function(){
+        var id = this.id;
+        $("#divfileTo"+id).hide();
+        $(".msgimg").remove();
+      });
+
+
+      $(".savediv").on('click', '.label-file', function(){
+          var id = this.id;
+        $("#divfileToUpload"+id).show();
+      });
+
+
     </script>
 
   </body>
