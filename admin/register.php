@@ -1,7 +1,7 @@
 <?php
 //Crée un utilisateur. SUPPRIMER CE FICHIER APRES UTILISATION
 
-$link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
+$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
 
     $password = password_hash("jury2020", PASSWORD_DEFAULT);
     $username = "visiteur";

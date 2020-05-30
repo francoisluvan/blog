@@ -2,10 +2,10 @@
 
 session_start();
 //connexion base de données
-$link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
+$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
 //Récupère les données des articles dans la base de données
-$rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
-$rqt2=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
+$rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
+$rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
 
 ?>
 
@@ -17,13 +17,14 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, categor
     <meta charset="utf-8">
 
     <title>Page d'accueil</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./style/bootstrap/bootstrap.min.css">
     <link href="./style/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="./style/style.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 
   </head>
   <body id="page-top">
@@ -137,16 +138,17 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, categor
                       for ($i=0;$post = mysqli_fetch_array($rqt);$i++) {
                         echo '
 
-                      <div class="col-md-4 col-sm-6 blog-item my-4" style="height:80%">
+                      <div class="col-md-4 col-sm-12 blog-item my-4" style="height:80%; min-width:300px">
                         <a class="blog-link stretched-link" style="text-decoration:none" href="article.php?p='.$post["id"].'">
                           <img class="img-fluid" src="'.$post['image'].'" alt="">
                       <div class="mb-4">
-                        <div class="blog-caption">
-                          <h4 style="color:black">'.$post["title"].'</h4>
-                          <p class="text-muted">'.$post["name"].'</p>
+                        <div class="blog-caption mb-3">
+                          <h4 style="color:black">'.utf8_encode($post["title"]).'</h4>
+                          <p class="text-muted">'.utf8_encode($post["name"]).'</p>
+                          <p class="text-muted my-2"  style="color:grey;text-decoration:none;font-style:italic;display: -webkit-box;max-height: 120px;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">'.utf8_encode($post["description"]).'</p>
                           </div>
                         <div class="container col-12">
-                        <button id="readtime" class="btn btn-sm btn-dark ">3 min de lecture</button>
+                        <button id="readtime" class="btn btn-sm btn-dark ">'.$post["duree"].' min de lecture</button>
                         </div>
                         </div>
                         </a>
@@ -162,13 +164,14 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, categor
                         if ($i > 0) {
                         echo '
                     <div class="carousel-item">
-                      <div class="col-md-4 col-sm-6 blog-item my-4" style="height:80%">
+                      <div class="col-md-4 col-sm-12 blog-item my-4" style="height:80%;min-width:300px">
                         <a class="blog-link stretched-link" style="text-decoration:none" href="article.php?p='.$post2["id"].'">
                           <img class="img-fluid" src="'.$post2['image'].'" alt="">
                       <div class="mb-4">
-                        <div class="blog-caption">
-                          <h4 style="color:black">'.$post2["title"].'</h4>
-                          <p class="text-muted">'.$post2["name"].'</p>
+                        <div class="blog-caption mb-3">
+                          <h4 style="color:black">'.utf8_encode($post2["title"]).'</h4>
+                          <p class="text-muted">'.utf8_encode($post2["name"]).'</p>
+                            <p class="text-muted my-2"  style="color:grey;text-decoration:none;font-style:italic;display: -webkit-box;max-height: 100px;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">'.utf8_encode($post2["description"]).'</p>
                           </div>
                         <div class="container col-12">
                         <button id="readtime" class="btn btn-sm btn-dark ">3 min de lecture</button>
@@ -264,7 +267,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, categor
           <div class="col-md-4">
             <ul class="list-inline quicklinks">
               <li class="list-inline-item">
-              <a href='/admin/login.php'> se connecter</a>
+              <a href='/admin/login.php' target="_blank"> se connecter</a>
               </li>
               <li class="list-inline-item">
                 <a href="#">Privacy Policy</a>

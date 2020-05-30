@@ -3,7 +3,8 @@
 session_start();
 $welcome = "Bienvenue " . $_SESSION['authUser'];
 //Connexion base de données
-$link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
+$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
+mysqli_set_charset($link,"utf8");
 //Vérification des droits de connexion
 if(!isset($_SESSION["isAdmin"]) || (isset($_SESSION["isAdmin"]) && !$_SESSION["isAdmin"])) {
   echo "Vous devez vous connecter.  <a href='login.php'> Connexion.</a>";
@@ -43,12 +44,15 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
    if (isset($_POST["title"]) && isset($_POST["post"])) {
      $title = mysqli_real_escape_string($link,$_POST['title']);
      $content = mysqli_real_escape_string($link,$_POST['post']);
+     $soustitre = mysqli_real_escape_string($link,$_POST['soustitre']);
+     $description = mysqli_real_escape_string($link,$_POST['description']);
      $category = intval($_POST['category']);
+     $duree = intval($_POST['duree']);
      $authorId = mysqli_real_escape_string($link,$_SESSION['authUser']);
      $date=date("Y-m-d H:i:s");
      $id=intval($_GET['id']);
      //requête pour enregistrer les modifications de l'article dans la base de données
-     mysqli_query($link,"UPDATE post SET id='$id', title ='$title', content='$content', FK_category='$category', FK_adminuser='$authorId', date='$date' WHERE id='$id';");
+     mysqli_query($link,"UPDATE post SET id='$id', title ='$title', soustitre='$soustitre', description='$description', content='$content', FK_category='$category', FK_adminuser='$authorId', duree='$duree', date='$date' WHERE id='$id';");
  }
 ?>
 
@@ -67,8 +71,6 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
 
     <title>Editer un article</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="blogadmin.css" rel="stylesheet">
@@ -161,7 +163,13 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
               <div>
                   <div>
                       <h4>  Titre : </h4>
-                      <input id="postTitle" type="text" name="article_titre" value="<?php echo $data['title'] ?>"/>
+                      <input id="postTitle" type="text" name="article_titre" style="width: 50%;" value="<?php echo $data['title'] ?>" maxlength="80"/>
+                      <p><em> 80 caractères max </em></p>
+                  </div>
+                  <div>
+                    <h5>  Sous-titre : </h5>
+                    <textarea id='soustitre' style="width: 50%;"  maxlength="255"><?php echo $data['soustitre'] ?></textarea>
+                    <p><em> 255 caractères max </em></p>
                   </div>
                   <div id="choixcategory" class="my-3">
                     <select id='listCategories' class="btn-sm bg-dark text-light ">
@@ -176,6 +184,16 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
               </div>
               <div>
                   <button id="addCategory" class="btn btn-dark btn-sm mb-3">Créer une nouvelle catégorie</button>
+              </div>
+              <div class='my-2'>
+                Durée de lecture :
+                <input id='duree' type='number' min="1" max="5" style="width: 4em;"  value="<?php echo $data['duree'] ?>"/>
+                min
+              </div>
+              <div class='my-3'>
+                <h5>  Description : </h5>
+                <textarea id='description' style="width: 50%;"  maxlength="255"><?php echo $data['description'] ?></textarea>
+                <p><em> 255 caractères max </em></p>
               </div>
               <div>  <textarea name="content" placeholder="Contenu de l'article"> <?php echo $data['content'] ?></textarea><br /> </div>
           </div>
@@ -193,8 +211,7 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <!-- Icons -->
@@ -214,6 +231,7 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
         // AJOUT DE CATEGORIES
         $('#addCategory').on('click', function(){
           var newName = prompt("Entrez le nom de votre catégorie :");
+          if(newName != null){
           $.ajax({
                     method: "POST",
                     data: {
@@ -231,8 +249,8 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
                     }
                   });
                   //Recharge uniquement le menu déroulant des catégories pour ajouter la catégorie sans refresh la page
-                  $('#choixcategory').load('http://blog/admin/redactor.php #listCategories');
-            });
+                  $('#choixcategory').load('http://bisonfactory.com/admin/redactor.php #listCategories');
+            }});
 
 
             // PUBLICATION DE L'ARTICLE MODIFIÉ
@@ -246,7 +264,10 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
                data: {
                  "post": CKEDITOR.instances.content.getData(),
                  "title": $("#postTitle").val(),
-                  "category" : $("#listCategories").val()
+                 "soustitre" : $("#soustitre").val(),
+                 "description" : $("#description").val(),
+                  "category" : $("#listCategories").val(),
+                  "duree" : $("#duree").val()
                },
                success: function(){
                   window.location.href = "admin.php";

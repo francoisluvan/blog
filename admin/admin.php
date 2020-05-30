@@ -11,8 +11,8 @@ if (isset($_SESSION['isAdmin'])) {
     }
 
 //Récupère les articles dans la base de données
-$link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
-$rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_category, category.name, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
+$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
+$rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, post.FK_category, category.name, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
 
 
 ?>
@@ -52,7 +52,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
         <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse mt-5" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
                 <a class="nav-link" href="#">Tableau de bord <span class="sr-only">(current)</span></a>
@@ -79,7 +79,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
     <!-- Menu latéral -->
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-2 d-flex d-md-block bg-light sidebar mt-5">
           <div class="sidebar-sticky" >
             <ul class="nav flex-column">
               <li class="nav-item">
@@ -111,9 +111,12 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
           </div>
         </nav>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <br />
 
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div>
+              <a href="redactor.php" class="btn btn-info float-right ">Écrire un nouvel article</a>
+          </div>
+          <br />
 
           <!-- Tableau -->
           <h2>Articles du blog</h2>
@@ -123,17 +126,26 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
                         <tr>
                           <th>Auteur</th>
                           <th>Titre</th>
+                          <th>Sous-titre</th>
+                          <th>Description</th>
                           <th>Catégorie</th>
+                          <th>Durée de lecture</th>
                           <th>Date</th>
                           <th>Image de couverture</th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
                         </tr>
                       </thead>
                       <?php
                         for ($i=0;$post = mysqli_fetch_array($rqt);$i++) {
                             echo "<tr>
                                     <td>".$post["FK_adminuser"]."</td>
-                                    <td>".$post["title"]."</td>
-                                    <td>".$post["name"]."</td>
+                                    <td><div' style='font-style:italic;display:block; max-width: 100px; overflow: wrap;'>".utf8_encode($post["title"])."</div></td>
+                                    <td><p style='font-style:italic;display:block;width:180px; max-width: 200px;overflow: wrap;'>".utf8_encode($post["soustitre"])."</p></td>
+                                    <td><p style='font-style:italic;display:block;width:180px; max-width: 200px;overflow:wrap;'>".utf8_encode($post["description"])."</p></td>
+                                    <td>".utf8_encode($post["name"])."</td>
+                                    <td>".$post["duree"]." min </td>
                                     <td>".$post["date"]."</td>
 
                                     <td style='display:block;max-width: 300px; width:200px;'>
@@ -149,14 +161,15 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
                                                   <div id='divfileToUpload".$post['id']."' class='filename'>
                                                   </div>
                                             </div>
-                                          <p class='currentimg' style='color:green; font-style:italic;display:block;max-width: 250px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'> Image actuelle :<br/>".$post['image']."
+                                          <p class='currentimg' style='color:green; font-style:italic;display:block;max-width: 200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'> Image actuelle : ".$post['image']." </p>
                                       </form>
                                     </td>
 
                                     <td><a href='update.php?id=".$post['id']."'>Éditer</a></td>
                                     <td><form action='suppress.php' method='post'  onSubmit=\"return confirm('Cet article sera supprimé définitivement');\" >
                                     <input type='hidden' name='suppr' value=".$post['id']."/>
-                                    <td><input class='btn btn-sm btn-danger' id='envoi' type='submit' value='Supprimer' /></td></form>
+                                    <td><input class='btn btn-sm btn-danger' type='submit' value='Supprimer' /></td></form>
+                                    <td><a target='_blank' href='http://bisonfactory.com/article.php?p=".$post['id']."'>Voir article</a></td>
                                 </tr>";
                         }
                       ?>
@@ -188,8 +201,8 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, post.FK_
 
       $('input[type="file"]').change(function(e) {
         var id = this.id;
-                      var msgimage = e.target.files[0].name;
-                      $('#div'+id).append('<p class="msgimg" style="color:red"> Voulez-vous enregistrer la nouvelle image ? ('+msgimage+')</p>');
+                      var nameimage = e.target.files[0].name;
+                      $('#div'+id).append('<p class="msgimg" style="color:red"> Voulez-vous enregistrer la nouvelle image ? ('+nameimage+')');
                     });
 
 

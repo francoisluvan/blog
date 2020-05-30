@@ -12,9 +12,9 @@ else
 }
 
 //connexion base de données
-$link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
+$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
 //Récupère le contenu de l'article sélectionné
-$rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category.name, post.content, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id WHERE post.id = '$id'") or die( mysqli_error($link));
+$rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.title, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id WHERE post.id = '$id'") or die( mysqli_error($link));
 
 
 ?>
@@ -28,7 +28,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category
         <meta charset="utf-8">
 
         <title>Article</title>
-
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="./style/bootstrap/bootstrap.min.css">
         <link href="./style/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
         <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -69,15 +69,15 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category
     <?php
       for ($i=0;$post = mysqli_fetch_array($rqt);$i++) {
             echo
-        '<header class="masthead" style="max-height:500px;background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),  url('.$post["image"].');  background-repeat: no-repeat;
+        '<header class="masthead d-flex align-items-center" style="background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),  url('.$post["image"].');  background-repeat: no-repeat;
           background-attachment: scroll;
           background-position: center ;
-          background-size: cover;">
-          <div class="container">
+          background-size: cover; max-height:500px;">
+          <div class="container" >
             <div class="intro-text">
-              <div class="intro-heading text-uppercase">
-                  '.$post["title"].'
-              <div class="intro-lead-in">Sous-titre</div>
+              <div class="intro-heading text-uppercase" style="text-decoration:none;overflow-wrap: break-word;">
+                  '.utf8_encode($post["title"]).'
+              <div class="intro-lead-in mt-4" style="padding-bottom:3em">'.utf8_encode($post["soustitre"]).'</div>
           </div>
         </header>
 
@@ -90,7 +90,8 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category
             <div class="row">
               <div class="header-post">
                   <div class="fade-content"><a href="blog.php">Retour aux articles</a></div>
-                  <div> publié dans la rubrique '.$post["name"].', par '.$post["FK_adminuser"].' le '.$post["date"].'</div>
+                  <div> publié dans la rubrique '.utf8_encode($post["name"]).', par '.$post["FK_adminuser"].' le '.$post["date"].'</div>
+                  <div> Temps de lecture : '.$post["duree"].' min  </div>
               </div>
             </div>
             <div class="row d-flex justify-content-center mx-5">
@@ -137,7 +138,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.FK_adminuser, category
               <div class="col-md-4">
                 <ul class="list-inline quicklinks">
                   <li class="list-inline-item">
-                  <a href='/admin/login.php'> se connecter</a>
+                  <a href='/admin/login.php' target="_blank"> se connecter</a>
                   </li>
                   <li class="list-inline-item">
                     <a href="#">Privacy Policy</a>

@@ -3,16 +3,20 @@
 session_start();
 $welcome = "Bienvenue " . $_SESSION['authUser'];
 //Connexion base de données
-$link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
+$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
 //Vérification des droits de connexion
 if(!isset($_SESSION["isAdmin"]) || (isset($_SESSION["isAdmin"]) && !$_SESSION["isAdmin"])) {
   echo "Vous devez vous connecter.  <a href='login.php'> Connexion.</a>";
   exit;
 }
 
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+// fichier sans espace
+
 $uploadOk = 1;
+$target_dir = "uploads/";
+$nomfichier = str_replace(' ','',$_FILES["fileToUpload"]["name"]);
+rename($_FILES["fileToUpload"]["name"], $nomfichier );
+$target_file = $target_dir . basename($nomfichier);
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
 // Check if image file is a actual image or fake image
@@ -53,16 +57,18 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-    $success = "Le fichier suivant a été enregistré : ". basename( $_FILES["fileToUpload"]["name"]);
+    $success = "Le fichier suivant a été enregistré : ". basename( $nomfichier);
   } else {
     echo "Une erreur est survenue.";
   }
 }
 
-// AJOUT D'IMAGE
+// AJOUT D'IMAGE BDD
 if(isset($_POST['articleid']) && (isset($success))){
       $id=intval($_POST['articleid']);
-      $image = 'http://blog/admin/uploads/'.$_FILES["fileToUpload"]["name"];
+      $nomfichier = str_replace(' ','',$_FILES["fileToUpload"]["name"]);
+      rename($_FILES["fileToUpload"]["tmp_name"], $nomfichier );
+      $image = 'http://bisonfactory.com/admin/uploads/'.$nomfichier;
       mysqli_query($link,"UPDATE post SET image='$image' WHERE id='$id'");
   }
   else "une erreur est survenue";

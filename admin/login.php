@@ -3,7 +3,7 @@
 
     session_start();
     //Connexion base de données
-    $link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
+$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
     //Vérification du username et password renseignés par l'utilisateur
     if (isset($_POST["username"]) && isset($_POST["password"])) {
         //real escape string() évite les injections sql

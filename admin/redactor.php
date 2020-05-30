@@ -11,8 +11,8 @@
     }
 
     // CONNEXION BASE DE DONNEES
-    $link = mysqli_connect("localhost", "root","", "blog") or die ("Impossible de se connecter: ".mysql_error());
-
+$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
+mysqli_set_charset($link,"utf8");
     // AJOUT DE CATEGORIES
     if (isset($_POST["name"])) {
         $name = mysqli_real_escape_string($link, $_POST["name"]);
@@ -30,14 +30,17 @@
      //AJOUT D'UN ARTICLE
      if (isset($_POST["title"]) && isset($_POST["post"])) {
        $title = mysqli_real_escape_string($link,$_POST['title']);
+       $soustitre = mysqli_real_escape_string($link,$_POST['soustitre']);
+       $description = mysqli_real_escape_string($link,$_POST['description']);
        $content = mysqli_real_escape_string($link,$_POST['post']);
        $category = intval($_POST['category']);
+       $duree = intval($_POST['duree']);
        $authorId = mysqli_real_escape_string($link,$_SESSION['authUser']);
        $date = date("Y-m-d H:i:s");
        $image = 'http://blog/admin/uploads/1-image-pardefaut.jpg';
 
        //Requête d'ajout de l'article dans la base de données
-       mysqli_query($link,"INSERT INTO post(title, content, FK_category, FK_adminuser, date, image) VALUES ('$title', '$content', '$category', '$authorId', '$date', '$image');");
+       mysqli_query($link,"INSERT INTO post(title, soustitre, description, content, FK_category, FK_adminuser, duree, date,  image) VALUES ('$title','$soustitre','$description', '$content', '$category', '$authorId', '$duree','$date', '$image');");
    }
 
 
@@ -57,9 +60,6 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <title>Ecrire un article</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="blogadmin.css" rel="stylesheet">
@@ -153,7 +153,13 @@
                   <div>
                       <h4>  Titre : </h4>
                   </div>
-                    <input type='text' id="postTitle" ></input>
+                    <input type='text' id="postTitle" style="width: 50%;" maxlength="80"></input>
+                    <p><em> 80 caractères max </em></p>
+                  <div>
+                    <h5>  Sous-titre : </h5>
+                    <textarea id='soustitre' style="width: 50%;" maxlength="255"></textarea>
+                    <p><em> 255 caractères max </em></p>
+                  </div>
                   <div id="choixcategory" class="my-3">
                     <select id='listCategories' class="btn-sm bg-dark text-light">
                       <option value='0' disabled selected>--Choisir une catégorie--</option>
@@ -167,11 +173,22 @@
                     <div >
                         <button id="addCategory" class="btn btn-dark btn-sm mb-3">Créer une nouvelle catégorie</button>
                     </div>
-            <div><textarea id='content' name='content' style='display:none'></textarea></div>
-          </div>
-          <div>
-          <button id="publish" class="btn btn-sm bg-dark text-light mt-3 mb-5">Publier</button>
-          </div>
+                    <div class='my-2'>
+                      Durée de lecture :
+                      <input id='duree' type='number' min="1" max="5" style="width: 4em;"  value="1"/>
+                      min
+                    </div>
+                    <div class='my-3'>
+                      <h5>  Description : </h5>
+                      <textarea id='description' style="width: 50%;"  maxlength="255"></textarea>
+                      <p><em> 255 caractères max </em></p>
+                    </div>
+                  <div>
+                    <textarea id='content' name='content' style='display:none'></textarea>
+                  </div>
+            <div>
+            <button id="publish" class="btn btn-sm bg-dark text-light mt-3 mb-5">Publier</button>
+            </div>
         </main>
       </div>
     </div>
@@ -179,8 +196,7 @@
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <!-- Icons -->
@@ -189,7 +205,6 @@
       feather.replace()
     </script>
     <!-- JS ajout de catégorie, publication d'article et warning dynamiques -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
     <script>
 
@@ -203,6 +218,7 @@
         // AJOUT DE CATEGORIES
         $('#addCategory').on('click', function(){
           var newName = prompt("Entrez le nom de votre catégorie :");
+          if(newName != null){
           $.ajax({
                     method: "POST",
                     data: {
@@ -220,8 +236,9 @@
                     }
                   });
                   //Recharge uniquement le menu déroulant des catégories pour ajouter la catégorie sans refresh la page
-                  $('#choixcategory').load('http://blog/admin/redactor.php #listCategories');
-            });
+                  $('#choixcategory').load('redactor.php #listCategories');
+            }})
+          ;
 
 
             // PUBLICATION DE L'ARTICLE
@@ -235,7 +252,10 @@
                     data: {
                       "post": CKEDITOR.instances.content.getData(),
                       "title": $("#postTitle").val(),
-                       "category" : $("#listCategories").val()
+                      "soustitre" : $("#soustitre").val(),
+                      "description" : $("#description").val(),
+                       "category" : $("#listCategories").val(),
+                       "duree" : $("#duree").val()
                     },
                     success: function(){
                        window.location.href = "admin.php";
