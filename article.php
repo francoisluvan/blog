@@ -25,10 +25,20 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
     <!DOCTYPE html>
     <html lang="fr" dir="ltr">
       <head>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168109459-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-168109459-1');
+        </script>
         <meta charset="utf-8">
 
-        <title>Article</title>
+        <title>Article du blog Bison Factory Conseil</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Article du blog de Bison Factory Conseil Bison Factory accompagne les entrepreneurs dans la création d'entreprise. Conseil en comptabilité gestion, marketing communication et développement web.">
         <link rel="stylesheet" href="./style/bootstrap/bootstrap.min.css">
         <link href="./style/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
         <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>

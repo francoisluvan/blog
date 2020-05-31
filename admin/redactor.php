@@ -213,8 +213,8 @@ mysqli_set_charset($link,"utf8");
 
     CKEDITOR.replace( 'content');
 
-    CKEDITOR.config.height= 400;
-    CKEDITOR.config.width= 900;
+    CKEDITOR.config.height= '100%';
+    CKEDITOR.config.width= '80%';
         // AJOUT DE CATEGORIES
         $('#addCategory').on('click', function(){
           var newName = prompt("Entrez le nom de votre catégorie :");

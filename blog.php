@@ -15,9 +15,19 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
   <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168109459-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-168109459-1');
+    </script>
     <meta charset="utf-8">
 
-    <title>Blog</title>
+    <title>Blog Bison Factory actualités</title>
+    <meta name="description" content="Articles du blog, actualités et news de l'entreprenariat. Bison Factory accompagne les entrepreneurs dans la création d'entreprise. Conseil en comptabilité gestion, marketing communication et développement web. Bison Factory Conseil.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./style/bootstrap/bootstrap.min.css">
     <link href="./style/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
@@ -83,7 +93,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
         echo
           '<div class="col-md-4 col-sm-6 blog-item my-4" style="height:80%">
             <a class="blog-link stretched-link" style="text-decoration:none" href="article.php?p='.$post["id"].'">
-              <img class="img-fluid" src="'.$post['image'].'" alt="">
+              <img class="img-fluid" src="'.$post['image'].'" alt="Bison Factory photo article blog">
           <div class="mb-4">
             <div class="blog-caption mb-3">
               <h4 style="color:black" display: -webkit-box;max-height: 120px;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">'.utf8_encode($post["title"]).'</h4>

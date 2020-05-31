@@ -14,9 +14,19 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
   <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168109459-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-168109459-1');
+    </script>
     <meta charset="utf-8">
 
-    <title>Page d'accueil</title>
+    <title>Page d'accueil Bison Factory conseil en création d'entreprise</title>
+    <meta name="description" content="Bison Factory accompagne les entrepreneurs dans la création d'entreprise. Conseil en comptabilité gestion, marketing communication et développement web. Bison Factory Conseil. Page d'accueil">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./style/bootstrap/bootstrap.min.css">
     <link href="./style/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
@@ -140,7 +150,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
 
                       <div class="col-md-4 col-sm-12 blog-item my-4" style="height:80%; min-width:300px">
                         <a class="blog-link stretched-link" style="text-decoration:none" href="article.php?p='.$post["id"].'">
-                          <img class="img-fluid" src="'.$post['image'].'" alt="">
+                          <img class="img-fluid" src="'.$post['image'].'" alt="Bison Factory photo article blog">
                       <div class="mb-4">
                         <div class="blog-caption mb-3">
                           <h4 style="color:black">'.utf8_encode($post["title"]).'</h4>
@@ -166,7 +176,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
                     <div class="carousel-item">
                       <div class="col-md-4 col-sm-12 blog-item my-4" style="height:80%;min-width:300px">
                         <a class="blog-link stretched-link" style="text-decoration:none" href="article.php?p='.$post2["id"].'">
-                          <img class="img-fluid" src="'.$post2['image'].'" alt="">
+                          <img class="img-fluid" src="'.$post2['image'].'" alt="Bison Factory photo article blog">
                       <div class="mb-4">
                         <div class="blog-caption mb-3">
                           <h4 style="color:black">'.utf8_encode($post2["title"]).'</h4>

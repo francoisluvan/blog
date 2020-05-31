@@ -70,6 +70,12 @@ em {
   text-transform: uppercase;
 }
 
+@media (max-width: 991px) {
+.sidebar{
+  display:none !important;
+}
+}
+
 /*
  * Navbar
  */
@@ -103,6 +109,10 @@ em {
   overflow: visible !important;
 }
 
+@media (max-width: 991px) {
+.sidebar{
+  display:none !important;
+}
 
 
 /*
