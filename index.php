@@ -33,7 +33,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/index.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico" /><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 
   </head>
@@ -92,7 +92,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
               <i class="fas fa-chart-line fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">Comptabilité Gestion</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <p class="text-muted">Les chiffres ne sont pas votre fort ? Pas de panique, nous vous accompagnons dans la gestion comptable de votre entreprise.</p>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
@@ -100,7 +100,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
               <i class="fas fa-bullhorn fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">Marketing Communication</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <p class="text-muted">Définissons ensemble une stratégie pour attirer toujours plus de clients !</p>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
@@ -108,7 +108,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
               <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">Développement web</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <p class="text-muted">Un indispensable ! Le site internet de votre entreprise doit refléter vos valeurs. Nous vous aidons à assurer votre présence en ligne. </p>
           </div>
         </div>
       </div>
@@ -121,6 +121,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
           <div class="col-lg-12 text-center section-img">
             <h2 class="section-heading text-uppercase text-muted before">A Propos</h2>
             <h3 class="section-subheading text-muted before">Qui sommes-nous ?</h3>
+            <p class="section-subheading text-muted before">Bison Factory accompagne les entrepreneurs dans les premiers pas de leur création d'entreprise. </p>
           </div>
         </div>
       </div>
@@ -226,6 +227,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Ils nous font confiance</h2>
             <h3 class="section-subheading text-muted">Retours de nos clients.</h3>
+            <img class="img-fluid" src="http://bisonfactory.com/images/uploads/avis-clients-site-internet-1-1.jpg" alt="Bison Factory avis client">
           </div>
         </div>
       </div>
@@ -237,7 +239,8 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Contactez-nous</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h3 class="section-subheading text-muted">Trouvons l'accompagnement qui vous correspond.</h3>
+
           </div>
         </div>
         <div class="row">

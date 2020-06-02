@@ -28,7 +28,7 @@ $link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bis
     <title>Blog admin</title>
 
     <!-- Custom styles for this template -->
-    <link href="blogadmin.css" rel="stylesheet">
+    <link href="../style/blogadmin.css" rel="stylesheet">
   </head>
 
   <body>

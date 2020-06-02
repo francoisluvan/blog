@@ -28,7 +28,7 @@ if (isset($_SESSION['isAdmin'])) {
     <title>Blog admin</title>
 
     <!-- Custom styles for this template -->
-    <link href="blogadmin.css" rel="stylesheet">
+    <link href="../style/blogadmin.css" rel="stylesheet">
   </head>
 
   <body>

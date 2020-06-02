@@ -13,7 +13,7 @@ if(!isset($_SESSION["isAdmin"]) || (isset($_SESSION["isAdmin"]) && !$_SESSION["i
 // fichier sans espace
 
 $uploadOk = 1;
-$target_dir = "uploads/";
+$target_dir = "../images/uploads/";
 $nomfichier = str_replace(' ','',$_FILES["fileToUpload"]["name"]);
 rename($_FILES["fileToUpload"]["name"], $nomfichier );
 $target_file = $target_dir . basename($nomfichier);
@@ -30,13 +30,6 @@ if(isset($_POST["submit"]) && $_FILES["fileToUpload"]["tmp_name"] != "") {
   }
 }
 
-
-
-// Check if file already exists
-// if (file_exists($target_file)) {
-//   $exist = "Ce fichier existe déjà.";
-//   $uploadOk = 0;
-// }
 
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 5000000) {
@@ -68,7 +61,7 @@ if(isset($_POST['articleid']) && (isset($success))){
       $id=intval($_POST['articleid']);
       $nomfichier = str_replace(' ','',$_FILES["fileToUpload"]["name"]);
       rename($_FILES["fileToUpload"]["tmp_name"], $nomfichier );
-      $image = 'http://bisonfactory.com/admin/uploads/'.$nomfichier;
+      $image = 'http://bisonfactory.com/images/uploads/'.$nomfichier;
       mysqli_query($link,"UPDATE post SET image='$image' WHERE id='$id'");
   }
   else "une erreur est survenue";
@@ -89,10 +82,10 @@ if(isset($_POST['articleid']) && (isset($success))){
     <meta name="author" content="">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>articles supprimés</title>
+    <title>image ajoutée</title>
 
     <!-- Custom styles for this template -->
-    <link href="blogadmin.css" rel="stylesheet">
+    <link href="../style/blogadmin.css" rel="stylesheet">
   </head>
 
   <body>

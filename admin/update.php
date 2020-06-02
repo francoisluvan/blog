@@ -73,7 +73,7 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
 
 
     <!-- Custom styles for this template -->
-    <link href="blogadmin.css" rel="stylesheet">
+    <link href="../style/blogadmin.css" rel="stylesheet">
   </head>
 
   <body>

@@ -62,7 +62,7 @@ mysqli_set_charset($link,"utf8");
     <title>Ecrire un article</title>
 
     <!-- Custom styles for this template -->
-    <link href="blogadmin.css" rel="stylesheet">
+    <link href="../style/blogadmin.css" rel="stylesheet">
   </head>
 
   <body>
@@ -280,7 +280,6 @@ mysqli_set_charset($link,"utf8");
             });
 
             window.onbeforeunload = showWindow;
-
 
     </script>
 

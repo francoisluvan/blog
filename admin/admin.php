@@ -30,7 +30,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
     <title>Blog admin</title>
 
     <!-- Custom styles for this template -->
-    <link href="blogadmin.css" rel="stylesheet">
+    <link href="../style/blogadmin.css" rel="stylesheet">
   </head>
 
   <body>

@@ -40,7 +40,7 @@ $link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bis
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="login.css" rel="stylesheet">
+    <link href="../style/login.css" rel="stylesheet">
 
     <title>Login</title>
     </head>
@@ -52,7 +52,7 @@ $link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bis
 
         <!-- Icon -->
         <div class="fadeIn first my-5">
-          <img src="https://www.bisoninc.com/wp-content/themes/minnowproject/dir/images/Bison-Inc-logo.png" id="icon" alt="User Icon" />
+          <img src="http://bisonfactory.com/images/uploads/logobisonfactory.png" id="icon" alt="User Icon" />
         </div>
 
         <!-- Login Form -->
