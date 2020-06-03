@@ -37,7 +37,7 @@ mysqli_set_charset($link,"utf8");
        $duree = intval($_POST['duree']);
        $authorId = mysqli_real_escape_string($link,$_SESSION['authUser']);
        $date = date("Y-m-d H:i:s");
-       $image = 'http://blog/admin/uploads/1-image-pardefaut.jpg';
+       $image = 'https://bisonfactory.com/images/uploads/1-image-pardefaut.jpg';
 
        //Requête d'ajout de l'article dans la base de données
        mysqli_query($link,"INSERT INTO post(title, soustitre, description, content, FK_category, FK_adminuser, duree, date,  image) VALUES ('$title','$soustitre','$description', '$content', '$category', '$authorId', '$duree','$date', '$image');");

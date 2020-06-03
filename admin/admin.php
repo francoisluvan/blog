@@ -169,7 +169,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
                                     <td><form action='suppress.php' method='post'  onSubmit=\"return confirm('Cet article sera supprimé définitivement');\" >
                                     <input type='hidden' name='suppr' value=".$post['id']."/>
                                     <td><input class='btn btn-sm btn-danger' type='submit' value='Supprimer' /></td></form>
-                                    <td><a target='_blank' href='http://bisonfactory.com/article.php?p=".$post['id']."'>Voir article</a></td>
+                                    <td><a target='_blank' href='https://bisonfactory.com/article.php?p=".$post['id']."'>Voir article</a></td>
                                 </tr>";
                         }
                       ?>

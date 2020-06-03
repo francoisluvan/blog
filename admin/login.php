@@ -52,7 +52,7 @@ $link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bis
 
         <!-- Icon -->
         <div class="fadeIn first my-5">
-          <img src="http://bisonfactory.com/images/uploads/logobisonfactory.png" id="icon" alt="User Icon" />
+          <img src="https://bisonfactory.com/images/uploads/logobisonfactory.png" id="icon" alt="User Icon" />
         </div>
 
         <!-- Login Form -->

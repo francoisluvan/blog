@@ -61,7 +61,7 @@ if(isset($_POST['articleid']) && (isset($success))){
       $id=intval($_POST['articleid']);
       $nomfichier = str_replace(' ','',$_FILES["fileToUpload"]["name"]);
       rename($_FILES["fileToUpload"]["tmp_name"], $nomfichier );
-      $image = 'http://bisonfactory.com/images/uploads/'.$nomfichier;
+      $image = 'https://bisonfactory.com/images/uploads/'.$nomfichier;
       mysqli_query($link,"UPDATE post SET image='$image' WHERE id='$id'");
   }
   else "une erreur est survenue";

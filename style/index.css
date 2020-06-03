@@ -324,7 +324,7 @@ transition: 0.5s ease-out;
 
 #a-propos{
   height: 700px;
-  background: url('../images/dunes.JPG') no-repeat;
+  background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url('../images/dunes.JPG') no-repeat;
   background-size: cover;
   background-repeat: no-repeat;;
   margin: 100px;

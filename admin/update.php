@@ -249,7 +249,7 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
                     }
                   });
                   //Recharge uniquement le menu déroulant des catégories pour ajouter la catégorie sans refresh la page
-                  $('#choixcategory').load('http://bisonfactory.com/admin/redactor.php #listCategories');
+                  $('#choixcategory').load('https://bisonfactory.com/admin/redactor.php #listCategories');
             }});
 
 

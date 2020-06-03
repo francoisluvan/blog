@@ -40,6 +40,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Article du blog de Bison Factory Conseil Bison Factory accompagne les entrepreneurs dans la création d'entreprise. Conseil en comptabilité gestion, marketing communication et développement web.">
         <link rel="stylesheet" href="./style/bootstrap/bootstrap.min.css">
+        <link rel="shortcut icon" href="https://bisonfactory.com/favicon.ico">
         <link href="./style/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
         <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
@@ -51,7 +52,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
 
         <!-- Menu -->
         <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-lg" id="mainNav">
-          <a class="navbar-brand js-scroll-trigger" href="index.php">Bison Factory</a>
+          <a class="navbar-brand js-scroll-trigger" href="index">Bison Factory</a>
           <!-- Menu responsive -->
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> MENU
           <span class="navbar-toggler-icon"></span>
@@ -59,16 +60,16 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ml-auto text-uppercase">
                 <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="index.php#services">Services</a>
+                  <a class="nav-link js-scroll-trigger" href="index#services">Services</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="index.php#a-propos">A propos</a>
+                  <a class="nav-link js-scroll-trigger" href="index#a-propos">A propos</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link js-scroll-trigger" href="#page-top">Blog</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="contact.html">Contact</a>
+                  <a class="nav-link js-scroll-trigger" href="contact">Contact</a>
                 </li>
               </ul>
             </div>
@@ -99,7 +100,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
           <div class="container">
             <div class="row">
               <div class="header-post">
-                  <div class="fade-content"><a href="blog.php">Retour aux articles</a></div>
+                  <div class="fade-content"><a href="blog">Retour aux articles</a></div>
                   <div> publié dans la rubrique '.utf8_encode($post["name"]).', par '.$post["FK_adminuser"].' le '.$post["date"].'</div>
                   <div> Temps de lecture : '.$post["duree"].' min  </div>
               </div>
@@ -108,7 +109,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
                 <div class=" my-5">
                             <div class="content-post">
                                 <div class="content">'.$post["content"].'</div>
-                                <div class="fade-content"><a href="blog.php">Retour aux articles</a></div>
+                                <div class="fade-content"><a href="blog">Retour aux articles</a></div>
                            </div>
                         </div>';
                       }
@@ -148,7 +149,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
               <div class="col-md-4">
                 <ul class="list-inline quicklinks">
                   <li class="list-inline-item">
-                  <a href='/admin/login.php' target="_blank"> se connecter</a>
+                  <a href='/admin/login' target="_blank"> se connecter</a>
                   </li>
                   <li class="list-inline-item">
                     <a href="#">Privacy Policy</a>

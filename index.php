@@ -25,9 +25,10 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
     </script>
     <meta charset="utf-8">
 
-    <title>Page d'accueil Bison Factory conseil en création d'entreprise</title>
+    <title>BISON FACTORY</title>
     <meta name="description" content="Bison Factory accompagne les entrepreneurs dans la création d'entreprise. Conseil en comptabilité gestion, marketing communication et développement web. Bison Factory Conseil. Page d'accueil">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="https://bisonfactory.com/favicon.ico">
     <link rel="stylesheet" href="./style/bootstrap/bootstrap.min.css">
     <link href="./style/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -69,7 +70,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
     <header class="masthead">
       <div class="container">
         <div class="intro-text">
-          <div class="intro-lead-in">Nous vous accompagnons</div>
+          <h1 class="intro-lead-in">Bison Factory vous accompagne</h1>
           <div class="intro-heading text-uppercase">Boostez vos projets</div>
           <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">En savoir plus</a>
         </div>
@@ -81,7 +82,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Services</h2>
+            <h2 class="section-heading text-uppercase">Les services proposés par Bison Factory</h2>
             <h3 class="section-subheading text-muted">Un accompagnement à votre mesure.</h3>
           </div>
         </div>
@@ -92,7 +93,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
               <i class="fas fa-chart-line fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">Comptabilité Gestion</h4>
-            <p class="text-muted">Les chiffres ne sont pas votre fort ? Pas de panique, nous vous accompagnons dans la gestion comptable de votre entreprise.</p>
+            <p class="text-muted">Les chiffres ne sont pas votre fort ? Pas de panique, Bison Factory vous accompagnons dans la gestion comptable de votre entreprise.</p>
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
@@ -119,9 +120,10 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center section-img">
-            <h2 class="section-heading text-uppercase text-muted before">A Propos</h2>
-            <h3 class="section-subheading text-muted before">Qui sommes-nous ?</h3>
-            <p class="section-subheading text-muted before">Bison Factory accompagne les entrepreneurs dans les premiers pas de leur création d'entreprise. </p>
+            <h2 class="section-heading text-uppercase text-muted before" style="color:white !important">A Propos</h2>
+            <h3 class="section-subheading text-muted before" style="color:white !important">Qui sommes-nous ?</h3>
+            <h4 class="section-subheading text-muted before" style="color:white !important"> <i> "Dans les affaires, Les grandes choses ne sont jamais faites par une seule personne, elles sont faites par toute une équipe." - Steve Jobs </i> </h4>
+            <p class="section-subheading text-muted before" style="color:white !important">  Bison Factory accompagne les entrepreneurs dans les premiers pas de leur création d'entreprise. Vous avez une idée ou un projet ? Nous vous aidons à définir la meilleure stratégie. Avec Bison Factory, franchissez les étapes vers le succès ! </p>
           </div>
         </div>
       </div>
@@ -135,7 +137,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
       <div class="row">
         <div class="col-lg-12 text-center">
           <h2 class="section-heading text-uppercase">blog</h2>
-          <h3 class="section-subheading text-muted">Les derniers articles.</h3>
+          <h3 class="section-subheading text-muted">Les derniers articles par nos experts sont en ligne sur le blog de Bison Factory.</h3>
         </div>
       </div>
 
@@ -150,7 +152,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
                         echo '
 
                       <div class="col-md-4 col-sm-12 blog-item my-4" style="height:80%; min-width:300px">
-                        <a class="blog-link stretched-link" style="text-decoration:none" href="article.php?p='.$post["id"].'">
+                        <a class="blog-link stretched-link" style="text-decoration:none" href="article?p='.$post["id"].'">
                           <img class="img-fluid" src="'.$post['image'].'" alt="Bison Factory photo article blog">
                       <div class="mb-4">
                         <div class="blog-caption mb-3">
@@ -176,7 +178,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
                         echo '
                     <div class="carousel-item">
                       <div class="col-md-4 col-sm-12 blog-item my-4" style="height:80%;min-width:300px">
-                        <a class="blog-link stretched-link" style="text-decoration:none" href="article.php?p='.$post2["id"].'">
+                        <a class="blog-link stretched-link" style="text-decoration:none" href="article?p='.$post2["id"].'">
                           <img class="img-fluid" src="'.$post2['image'].'" alt="Bison Factory photo article blog">
                       <div class="mb-4">
                         <div class="blog-caption mb-3">
@@ -216,7 +218,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
 
 
       <div class="container text-center">
-        <a href="blog.php"> Tous les articles </a>
+        <a href="blog"> Tous les articles </a>
       </div>
     </section>
 
@@ -226,8 +228,8 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Ils nous font confiance</h2>
-            <h3 class="section-subheading text-muted">Retours de nos clients.</h3>
-            <img class="img-fluid" src="http://bisonfactory.com/images/uploads/avis-clients-site-internet-1-1.jpg" alt="Bison Factory avis client">
+            <h3 class="section-subheading text-muted">Retours des clients accompagnés par Bison Factory.</h3>
+            <img class="img-fluid" src="https://bisonfactory.com/images/uploads/avis-clients-site-internet-1-1.jpg" alt="Bison Factory avis client">
           </div>
         </div>
       </div>
@@ -239,13 +241,13 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Contactez-nous</h2>
-            <h3 class="section-subheading text-muted">Trouvons l'accompagnement qui vous correspond.</h3>
+            <h3 class="section-subheading text-muted">Trouvons ensemble l'accompagnement qui vous correspond.</h3>
 
           </div>
         </div>
         <div class="row">
           <div class="col-lg-12 text-center">
-            <a id="contact-button" class="btn btn-primary btn-xl text-uppercase" href="contact.html">Prendre contact</a>
+            <a id="contact-button" class="btn btn-primary btn-xl text-uppercase" href="contact">Prendre contact</a>
           </div>
         </div>
       </div>
@@ -280,7 +282,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
           <div class="col-md-4">
             <ul class="list-inline quicklinks">
               <li class="list-inline-item">
-              <a href='/admin/login.php' target="_blank"> se connecter</a>
+              <a href='/admin/login' target="_blank"> se connecter</a>
               </li>
               <li class="list-inline-item">
                 <a href="#">Privacy Policy</a>

@@ -29,6 +29,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
     <title>Blog Bison Factory actualités</title>
     <meta name="description" content="Articles du blog, actualités et news de l'entreprenariat. Bison Factory accompagne les entrepreneurs dans la création d'entreprise. Conseil en comptabilité gestion, marketing communication et développement web. Bison Factory Conseil.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="https://bisonfactory.com/favicon.ico">
     <link rel="stylesheet" href="./style/bootstrap/bootstrap.min.css">
     <link href="./style/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -41,7 +42,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
 
     <!-- Menu -->
     <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-lg" id="mainNav">
-      <a class="navbar-brand js-scroll-trigger" href="index.php">Bison Factory</a>
+      <a class="navbar-brand js-scroll-trigger" href="index">Bison Factory</a>
       <!-- Menu responsive -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> MENU
       <span class="navbar-toggler-icon"></span>
@@ -49,16 +50,16 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto text-uppercase">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="index.php#services">Services</a>
+              <a class="nav-link js-scroll-trigger" href="index#services">Services</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="index.php#a-propos">A propos</a>
+              <a class="nav-link js-scroll-trigger" href="index#a-propos">A propos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#page-top">Blog</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="contact.html">Contact</a>
+              <a class="nav-link js-scroll-trigger" href="contact">Contact</a>
             </li>
           </ul>
         </div>
@@ -92,7 +93,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
       for ($i=0;$post = mysqli_fetch_array($rqt);$i++) {
         echo
           '<div class="col-md-4 col-sm-6 blog-item my-4" style="height:80%">
-            <a class="blog-link stretched-link" style="text-decoration:none" href="article.php?p='.$post["id"].'">
+            <a class="blog-link stretched-link" style="text-decoration:none" href="article?p='.$post["id"].'">
               <img class="img-fluid" src="'.$post['image'].'" alt="Bison Factory photo article blog">
           <div class="mb-4">
             <div class="blog-caption mb-3">
@@ -143,7 +144,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
           <div class="col-md-4">
             <ul class="list-inline quicklinks">
               <li class="list-inline-item">
-              <a href='/admin/login.php' target="_blank"> se connecter</a>
+              <a href='/admin/login' target="_blank"> se connecter</a>
               </li>
               <li class="list-inline-item">
                 <a href="#">Privacy Policy</a>
