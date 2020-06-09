@@ -216,7 +216,7 @@
     CKEDITOR.replace( 'content');
 
     CKEDITOR.config.height= 500;
-    CKEDITOR.config.width= auto;
+    CKEDITOR.config.width= 'auto';
         // AJOUT DE CATEGORIES
         $('#addCategory').on('click', function(){
           var newName = prompt("Entrez le nom de votre catégorie :");
