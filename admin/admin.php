@@ -11,7 +11,7 @@ if (isset($_SESSION['isAdmin'])) {
     }
 
 //Récupère les articles dans la base de données
-$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
+require ('config.php');
 $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, post.FK_category, category.name, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
 
 
@@ -36,14 +36,15 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
   <body>
 
     <!-- Menu -->
+    <div class="sticky-top">
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Bison Factory</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="../index" target="_blank">Bison Factory</a>
       <input class="form-control form-control-dark w-50 d-none d-md-block" type="text" placeholder="Recherche" aria-label="Search">
       <div class="mx-auto">
         <em> <?php echo $welcome ?> </em>
       </div>
       <div class="mx-auto">
-          <a class="nav-link" href="deconnexion.php">Déconnexion</a>
+          <a class="nav-link deconnect" href="deconnexion.php">Déconnexion</a>
       </div>
     </nav>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
@@ -52,7 +53,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
         <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse mt-5" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
                 <a class="nav-link" href="#">Tableau de bord <span class="sr-only">(current)</span></a>
@@ -74,13 +75,14 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
       </li>
     </ul>
   </nav>
+</div>
 
 
     <!-- Menu latéral -->
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-flex d-md-block bg-light sidebar mt-5">
-          <div class="sidebar-sticky" >
+          <div class="sidebar-sticky mt-3" >
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link active" href="#">
@@ -165,7 +167,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
                                       </form>
                                     </td>
 
-                                    <td><a href='update.php?id=".$post['id']."'>Éditer</a></td>
+                                    <td><a class='btn btn-sm btn-warning text-light' href='update.php?id=".$post['id']."'>Éditer</a></td>
                                     <td><form action='suppress.php' method='post'  onSubmit=\"return confirm('Cet article sera supprimé définitivement');\" >
                                     <input type='hidden' name='suppr' value=".$post['id']."/>
                                     <td><input class='btn btn-sm btn-danger' type='submit' value='Supprimer' /></td></form>
@@ -227,6 +229,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
           var id = this.id;
         $("#divfileToUpload"+id).show();
       });
+
 
 
     </script>

@@ -10,7 +10,7 @@ if (isset($_SESSION['isAdmin'])) {
         return;
     }
 
-
+    require ('config.php');
 
 ?>
 

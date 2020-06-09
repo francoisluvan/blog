@@ -3,23 +3,22 @@
 session_start();
 $welcome = "Bienvenue " . $_SESSION['authUser'];
 //Connexion base de données
-$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
+require ('config.php');
 //Vérification des droits de connexion
 if(!isset($_SESSION["isAdmin"]) || (isset($_SESSION["isAdmin"]) && !$_SESSION["isAdmin"])) {
   echo "Vous devez vous connecter.  <a href='login.php'> Connexion.</a>";
   exit;
 }
 
-// fichier sans espace
-
 $uploadOk = 1;
 $target_dir = "../images/uploads/";
+// enlève les espaces s'il y en a dans le nom du fichier
 $nomfichier = str_replace(' ','',$_FILES["fileToUpload"]["name"]);
 rename($_FILES["fileToUpload"]["name"], $nomfichier );
 $target_file = $target_dir . basename($nomfichier);
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-// Check if image file is a actual image or fake image
+// Vérifie s'il s'agit vraiment d'une image
 if(isset($_POST["submit"]) && $_FILES["fileToUpload"]["tmp_name"] != "") {
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
   if($check !== false) {
@@ -31,23 +30,23 @@ if(isset($_POST["submit"]) && $_FILES["fileToUpload"]["tmp_name"] != "") {
 }
 
 
-// Check file size
+// Vérifie la taille de l'image
 if ($_FILES["fileToUpload"]["size"] > 5000000) {
   $taille = "Fichier trop volumineux. Taille maximum : 5mb.";
   $uploadOk = 0;
 }
 
-// Allow certain file formats
+// Vérifie le format
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif" ) {
   $format = "Format incorrect. Seuls les fichiers JPG, JPEG, PNG & GIF acceptés.";
   $uploadOk = 0;
 }
 
-// Check if $uploadOk is set to 0 by an error
+// Vérifie si $uploadOk est à 0 à cause d'une erreur
 if ($uploadOk == 0) {
   $fail = "Le fichier n'a pas pu être enregistré.";
-// if everything is ok, try to upload file
+// Si ok, upload du fichier
 } else {
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
     $success = "Le fichier suivant a été enregistré : ". basename( $nomfichier);
@@ -84,7 +83,6 @@ if(isset($_POST['articleid']) && (isset($success))){
 
     <title>image ajoutée</title>
 
-    <!-- Custom styles for this template -->
     <link href="../style/blogadmin.css" rel="stylesheet">
   </head>
 
@@ -196,7 +194,6 @@ if(isset($_POST['articleid']) && (isset($success))){
           </p>
           <a href='admin.php'> Retour aux articles</a>
 
-     <!-- <a href='uploads/".$_FILES["fileToUpload"]["name"]."'>Lien</a>"; -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

@@ -57,7 +57,7 @@ em {
 }
 
 .sidebar .nav-link.active {
-  color: #007bff;
+  color: #fed136;
 }
 
 .sidebar .nav-link:hover .feather,
@@ -65,12 +65,17 @@ em {
   color: inherit;
 }
 
+.deconnect {
+  color: #fed136;
+}
+
 .sidebar-heading {
   font-size: .75rem;
   text-transform: uppercase;
 }
 
-@media (max-width: 991px) {
+
+@media (max-width: 768px) {
 .sidebar{
   display:none !important;
 }
@@ -108,12 +113,6 @@ em {
 .currentimg:hover {
   overflow: visible !important;
 }
-
-@media (max-width: 991px) {
-.sidebar{
-  display:none !important;
-}
-
 
 /*
  * Utilities

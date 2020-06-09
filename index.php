@@ -2,11 +2,10 @@
 
 session_start();
 //connexion base de données
-$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
+require ('./admin/config.php');
 //Récupère les données des articles dans la base de données
 $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
 $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
-
 ?>
 
 
@@ -23,11 +22,11 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
 
       gtag('config', 'UA-168109459-1');
     </script>
-    <meta charset="utf-8">
 
     <title>BISON FACTORY</title>
     <meta name="description" content="Bison Factory accompagne les entrepreneurs dans la création d'entreprise. Conseil en comptabilité gestion, marketing communication et développement web. Bison Factory Conseil. Page d'accueil">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="https://bisonfactory.com/favicon.ico">
     <link rel="stylesheet" href="./style/bootstrap/bootstrap.min.css">
     <link href="./style/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,7 +41,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
 
     <!-- Menu -->
     <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-lg" id="mainNav">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Bison Factory</a>
+      <a class="navbar-brand js-scroll-trigger" href="#page-top"><img class="img-fluid" src="./images/logoblanc.png" alt="logo bison factory"></a>
       <!-- Menu responsive -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> MENU
       <span class="navbar-toggler-icon"></span>
@@ -70,9 +69,9 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
     <header class="masthead">
       <div class="container">
         <div class="intro-text">
-          <h1 class="intro-lead-in">Bison Factory vous accompagne</h1>
-          <div class="intro-heading text-uppercase">Boostez vos projets</div>
-          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">En savoir plus</a>
+          <h1 class="intro-heading text-uppercase text-left">Lancez-vous.</h1>
+          <div class="intro-heading text-uppercase text-left">Devenez entrepreneur.</div>
+          <a class="btn btn-dark btn-xl text-uppercase js-scroll-trigger" href="#services">En savoir plus</a>
         </div>
       </div>
     </header>
@@ -239,15 +238,10 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
     <section class="page-section" id="contact">
       <div class="container">
         <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Contactez-nous</h2>
-            <h3 class="section-subheading text-muted">Trouvons ensemble l'accompagnement qui vous correspond.</h3>
-
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <a id="contact-button" class="btn btn-primary btn-xl text-uppercase" href="contact">Prendre contact</a>
+          <div class="col-12 text-center">
+            <h2 class="section-heading text-uppercase text-center">Contactez-nous</h2>
+            <h3 class="section-subheading text-muted text-light text-center">Trouvons ensemble l'accompagnement qui vous correspond.</h3>
+            <a id="contact-button" class="btn btn-dark btn-xl text-uppercase" href="contact">Prendre contact</a>
           </div>
         </div>
       </div>
@@ -257,8 +251,8 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
     <footer class="footer">
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-md-4">
-            <span class="copyright">Copyright &copy; François Lu Van 2020</span>
+          <div id="logodiv" class="col-md-4">
+            <img class="img-fluid mb-3" src="./images/logobisonfactory.png" alt="logo bison factory">
           </div>
           <div class="col-md-4">
             <ul class="list-inline social-buttons">
@@ -285,10 +279,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
               <a href='/admin/login' target="_blank"> se connecter</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Terms of Use</a>
+                <a href="#">Mentions légales</a>
               </li>
             </ul>
           </div>

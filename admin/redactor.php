@@ -11,8 +11,8 @@
     }
 
     // CONNEXION BASE DE DONNEES
-$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
-mysqli_set_charset($link,"utf8");
+    require ('config.php');
+    mysqli_set_charset($link,"utf8");
     // AJOUT DE CATEGORIES
     if (isset($_POST["name"])) {
         $name = mysqli_real_escape_string($link, $_POST["name"]);
@@ -66,15 +66,15 @@ mysqli_set_charset($link,"utf8");
   </head>
 
   <body>
-
+    <div class="sticky-top">
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Bison Factory</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="../index" target="_blank">Bison Factory</a>
       <input class="form-control form-control-dark w-50 d-none d-md-block" type="text" placeholder="Recherche" aria-label="Search">
       <div class="mx-auto">
         <em> <?php echo $welcome?> </em>
       </div>
       <div class="mx-auto">
-          <a class="nav-link" href="deconnexion.php">Déconnexion</a>
+          <a class="nav-link deconnect" href="deconnexion.php">Déconnexion</a>
       </div>
     </nav>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
@@ -105,13 +105,14 @@ mysqli_set_charset($link,"utf8");
       </li>
     </ul>
   </nav>
+</div>
 
 
 
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky" >
+          <div class="sidebar-sticky position-fixed" >
             <ul class="nav flex-column">
               <li class="nav-item mt-3">
                 <a class="nav-link" href="admin.php">
@@ -184,6 +185,7 @@ mysqli_set_charset($link,"utf8");
                       <p><em> 255 caractères max </em></p>
                     </div>
                   <div>
+                    <h5>  Contenu de l'article : </h5>
                     <textarea id='content' name='content' style='display:none'></textarea>
                   </div>
             <div>
@@ -213,8 +215,8 @@ mysqli_set_charset($link,"utf8");
 
     CKEDITOR.replace( 'content');
 
-    CKEDITOR.config.height= '100%';
-    CKEDITOR.config.width= '80%';
+    CKEDITOR.config.height= 500;
+    CKEDITOR.config.width= auto;
         // AJOUT DE CATEGORIES
         $('#addCategory').on('click', function(){
           var newName = prompt("Entrez le nom de votre catégorie :");

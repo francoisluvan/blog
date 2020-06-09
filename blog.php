@@ -2,7 +2,7 @@
 
 session_start();
 //connexion base de données
-$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
+require ('./admin/config.php');
 //Récupère les données des articles dans la base de données
 $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
 
@@ -42,7 +42,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
 
     <!-- Menu -->
     <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-lg" id="mainNav">
-      <a class="navbar-brand js-scroll-trigger" href="index">Bison Factory</a>
+      <a class="navbar-brand js-scroll-trigger" href="index"><img class="img-fluid" src="./images/logoblanc.png" alt="logo bison factory"></a>
       <!-- Menu responsive -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> MENU
       <span class="navbar-toggler-icon"></span>
@@ -119,8 +119,8 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
     <footer class="footer">
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-md-4">
-            <span class="copyright">Copyright &copy; François Lu Van 2020</span>
+          <div id="logodiv" class="col-md-4">
+            <img class="img-fluid mb-3" src="./images/logobisonfactory.png" alt="logo bison factory">
           </div>
           <div class="col-md-4">
             <ul class="list-inline social-buttons">
@@ -147,10 +147,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
               <a href='/admin/login' target="_blank"> se connecter</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">Privacy Policy</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Terms of Use</a>
+                <a href="#">Mentions légales</a>
               </li>
             </ul>
           </div>

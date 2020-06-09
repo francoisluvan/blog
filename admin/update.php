@@ -3,7 +3,7 @@
 session_start();
 $welcome = "Bienvenue " . $_SESSION['authUser'];
 //Connexion base de données
-$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
+require ('config.php');
 mysqli_set_charset($link,"utf8");
 //Vérification des droits de connexion
 if(!isset($_SESSION["isAdmin"]) || (isset($_SESSION["isAdmin"]) && !$_SESSION["isAdmin"])) {
@@ -71,24 +71,22 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
 
     <title>Editer un article</title>
 
-
-    <!-- Custom styles for this template -->
     <link href="../style/blogadmin.css" rel="stylesheet">
   </head>
 
   <body>
-
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Bison Factory</a>
+    <div class="sticky-top">
+    <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="../index" target="_blank">Bison Factory</a>
       <input class="form-control form-control-dark w-50 d-none d-md-block" type="text" placeholder="Recherche" aria-label="Search">
       <div class="mx-auto">
-        <em> <?php echo $welcome ?> </em>
+        <em> <?php echo $welcome?> </em>
       </div>
       <div class="mx-auto">
-          <a class="nav-link" href="deconnexion.php">Déconnexion</a>
+          <a class="nav-link deconnect" href="deconnexion.php">Déconnexion</a>
       </div>
     </nav>
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0">
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap d-md-none">
         <button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,13 +114,14 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
       </li>
     </ul>
   </nav>
+</div>
 
 
 
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky" >
+          <div class="sidebar-sticky position-fixed" >
             <ul class="nav flex-column">
               <li class="nav-item mt-3">
                 <a class="nav-link" href="admin.php">
@@ -195,7 +194,9 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
                 <textarea id='description' style="width: 50%;"  maxlength="255"><?php echo $data['description'] ?></textarea>
                 <p><em> 255 caractères max </em></p>
               </div>
-              <div>  <textarea name="content" placeholder="Contenu de l'article"> <?php echo $data['content'] ?></textarea><br /> </div>
+              <div>
+                <h5>  Contenu de l'article : </h5>
+                <textarea name="content" placeholder="Contenu de l'article"> <?php echo $data['content'] ?></textarea><br /> </div>
           </div>
           <div>
           <button id="publish"  class="btn btn-sm bg-dark text-light mt-3 mb-5"> enregistrer </button>
@@ -226,8 +227,8 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
     //Remplace le textarea par l'éditeur de texte ckeditor 4
     CKEDITOR.replace( 'content');
 
-    CKEDITOR.config.height= 400;
-    CKEDITOR.config.width= 900;
+    CKEDITOR.config.height= 500;
+    CKEDITOR.config.width= auto;
         // AJOUT DE CATEGORIES
         $('#addCategory').on('click', function(){
           var newName = prompt("Entrez le nom de votre catégorie :");

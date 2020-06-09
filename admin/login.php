@@ -3,7 +3,7 @@
 
     session_start();
     //Connexion base de données
-$link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bisonfgadmin") or die ("Impossible de se connecter: ".mysql_error());
+    require ('config.php');
     //Vérification du username et password renseignés par l'utilisateur
     if (isset($_POST["username"]) && isset($_POST["password"])) {
         //real escape string() évite les injections sql
@@ -52,7 +52,7 @@ $link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bis
 
         <!-- Icon -->
         <div class="fadeIn first my-5">
-          <img src="https://bisonfactory.com/images/uploads/logobisonfactory.png" id="icon" alt="User Icon" />
+          <a href="../index" target="_blank"><img src="https://bisonfactory.com/images/uploads/logobisonfactory.png" id="icon" alt="User Icon" /> </a>
         </div>
 
         <!-- Login Form -->
@@ -67,7 +67,7 @@ $link = mysqli_connect("bisonfgadmin.mysql.db", "bisonfgadmin","Tarsi0701", "bis
 
         <!-- Remind Passowrd -->
         <div id="formFooter">
-          <a class="underlineHover" href="mailto:francois.luvan@gmail.com">support</a>
+          <a class="underlineHover" href="mailto:francois.luvan@gmail.com">Besoin d'aide ?</a>
         </div>
 
       </div>
