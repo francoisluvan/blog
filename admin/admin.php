@@ -12,7 +12,7 @@ if (isset($_SESSION['isAdmin'])) {
 
 //Récupère les articles dans la base de données
 require ('config.php');
-$rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, post.FK_category, category.name, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
+$rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, post.FK_category, category.name, post.duree, date, post.image, post.visible FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
 
 
 ?>
@@ -25,7 +25,10 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
 
     <title>Blog admin</title>
 
@@ -39,12 +42,9 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
     <div class="sticky-top">
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="../index" target="_blank">Bison Factory</a>
-      <input class="form-control form-control-dark w-50 d-none d-md-block" type="text" placeholder="Recherche" aria-label="Search">
-      <div class="mx-auto">
-        <em> <?php echo $welcome ?> </em>
-      </div>
-      <div class="mx-auto">
-          <a class="nav-link deconnect" href="deconnexion.php">Déconnexion</a>
+      <div class="mx-5 row col-9 d-flex align-items-center">
+        <em class="text-left col-6"> <?php echo $welcome ?> </em>
+          <a class="nav-link deconnect col-6 text-right" href="deconnexion.php">Déconnexion</a>
       </div>
     </nav>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
@@ -68,9 +68,6 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
                 <a class="nav-link" href="stats.php">Stats</a>
               </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
-            </form>
           </div>
       </li>
     </ul>
@@ -82,7 +79,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-flex d-md-block bg-light sidebar mt-5">
-          <div class="sidebar-sticky mt-3" >
+          <div class="sidebar-sticky mt-3 " >
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link active" href="#">
@@ -121,9 +118,9 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
           <br />
 
           <!-- Tableau -->
-          <h2>Articles du blog</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm">
+          <h2 class=>Articles du blog</h2>
+          <div class="table-responsive mt-4">
+            <table id="table_id" class="table display table-striped table-sm">
                       <thead>
                         <tr>
                           <th>Auteur</th>
@@ -134,6 +131,8 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
                           <th>Durée de lecture</th>
                           <th>Date</th>
                           <th>Image de couverture</th>
+                          <th></th>
+                          <th></th>
                           <th></th>
                           <th></th>
                           <th></th>
@@ -166,7 +165,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
                                           <p class='currentimg' style='color:green; font-style:italic;display:block;max-width: 200px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'> Image actuelle : ".$post['image']." </p>
                                       </form>
                                     </td>
-
+                                    <td><a class='btn btn-sm btn-primary text-light' href='visible.php?id=".$post['id']."&status=".$post["visible"]."' value='".$post["visible"]."''>".$post["visible"]."</a></td>
                                     <td><a class='btn btn-sm btn-warning text-light' href='update.php?id=".$post['id']."'>Éditer</a></td>
                                     <td><form action='suppress.php' method='post'  onSubmit=\"return confirm('Cet article sera supprimé définitivement');\" >
                                     <input type='hidden' name='suppr' value=".$post['id']."/>
@@ -188,9 +187,43 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <!-- Datatables -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script>  $(document).ready(function() {
+    $('#table_id').DataTable( {
+          "language": {
+    "decimal":        "",
+    "emptyTable":     "Aucune donnée",
+    "info":           "Articles _START_ à _END_ sur un total de _TOTAL_ article(s)",
+    "infoEmpty":      "aucun résultat",
+    "infoFiltered":   "(_MAX_ résultat(s filtré(s)",
+    "infoPostFix":    "",
+    "thousands":      ",",
+    "lengthMenu":     "Afficher _MENU_ articles",
+    "loadingRecords": "chargement...",
+    "processing":     "chargement...",
+    "search":         "rechercher:",
+    "zeroRecords":    "Aucun résultat",
+    "paginate": {
+        "first":      "Premier",
+        "last":       "Dernier",
+        "next":       "suivant",
+        "previous":   "précédent"
+    },
+    "aria": {
+        "sortAscending":  ": ranger par ordre croissant",
+        "sortDescending": ": ranger par ordre décroissant"
+    }
+}
+        }
+     );
+});
+    </script>
+
 
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>

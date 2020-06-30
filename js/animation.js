@@ -1,6 +1,6 @@
 $(document).on("scroll", function()
 {
-  if ($(document).scrollTop() >= 980) // Change 5 par la valeur que tu veux, pour que ça te plaise, tu peux également utiliser scrollDown si tu veux l'agencement inverse
+  if ($(document).scrollTop() >= 1350) // Change 5 par la valeur que tu veux, pour que ça te plaise, tu peux également utiliser scrollDown si tu veux l'agencement inverse
   {
     $("#a-propos").addClass('scale-img'); // Change 50px par la valeur que tu veux pour agrandir ton image
     $("#a-propos .section-heading").addClass('from-left');

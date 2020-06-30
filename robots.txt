@@ -1,0 +1,12 @@
+User-Agent: *
+Allow: /https://bisonfactory.com//
+Disallow: /https://bisonfactory.com/admin
+Disallow: /https://bisonfactory.com/admin/admin
+Disallow: /https://bisonfactory.com/admin/login
+Disallow: /https://bisonfactory.com/admin/redactor
+Disallow: /https://bisonfactory.com/admin/update
+Disallow: /https://bisonfactory.com/admin/upload
+Disallow: /https://bisonfactory.com/admin/register
+
+Sitemap: https://bisonfactory.com/sitemap.xml
+

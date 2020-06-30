@@ -98,9 +98,6 @@
                 <a class="nav-link" href="#">Stats</a>
               </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
-            </form>
           </div>
       </li>
     </ul>
@@ -111,8 +108,8 @@
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky position-fixed" >
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar  mr-5">
+          <div class="sidebar-sticky position-fixed " >
             <ul class="nav flex-column">
               <li class="nav-item mt-3">
                 <a class="nav-link" href="admin.php">

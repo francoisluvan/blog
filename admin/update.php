@@ -107,9 +107,6 @@ if(isset($_GET['id']) AND !empty($_GET['id'])) {
                 <a class="nav-link" href="#">Stats</a>
               </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
-            </form>
           </div>
       </li>
     </ul>

@@ -1,3 +1,4 @@
+
 .page-section {
   padding: 100px 0;
 }
@@ -12,12 +13,22 @@ header.masthead{
   background-size: cover;
 }
 
-header.masthead .intro-text {
+header.masthead-services{
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),  url("../images/mountain.jpg");
+  text-align: center;
+  color: white;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center ;
+  background-size: cover;
+}
+
+header.masthead .intro-text, .masthead-services .intro-text {
   padding-top: 300px;
   padding-bottom: 200px;
 }
 
-header.masthead .intro-text .intro-lead-in {
+header.masthead  .intro-text .intro-lead-in , .masthead-services .intro-text .intro-lead-in {
   font-size: 22px;
   font-style: italic;
   line-height: 22px;
@@ -25,7 +36,7 @@ header.masthead .intro-text .intro-lead-in {
   font-family: 'Droid Serif', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-header.masthead .intro-text .intro-heading {
+header.masthead  .intro-text .intro-heading , .masthead-services .intro-text .intro-heading {
   font-size: 50px;
   overflow-wrap: normal;
   text-overflow: clip;
@@ -36,9 +47,13 @@ header.masthead .intro-text .intro-heading {
 }
 
 @media (max-width: 768px) {
-  header.masthead .intro-text .intro-heading {
+  header.masthead .intro-text .intro-heading , .masthead-services .intro-text .intro-heading {
   font-size: 30px !important;
 }
+}
+
+hr {
+  border-top: 10px solid black;
 }
 
 .page-section h3.section-subheading {
@@ -55,9 +70,54 @@ header.masthead .intro-text .intro-heading {
   text-align: left;
 }
 
+/* page services */
+
 .service-heading {
   margin: 15px 0;
   text-transform: none;
+}
+
+@media (max-width: 768px) {
+.service-bloc {
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+    text-align: center;
+}
+
+.service-div{
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  text-align: center;
+}
+
+.txt-service {
+  margin : 0;
+}
+}
+
+@media (min-width: 768px) {
+  .txt-service {
+    margin : 3em;
+  }
+}
+
+
+
+@media (max-width: 991px) {
+.img-service {
+  height : 200px;
+  width :200px;
+  margin: 0 auto;
+}
+}
+@media (min-width: 991px) {
+.img-service {
+  height : 250px;
+  width :250px;
+  margin: 0 auto;
+}
 }
 
 #mainNav {
@@ -133,6 +193,14 @@ section#contact h3{
   margin-bottom: 2em;
 }
 
+a {
+  color:black;
+}
+
+a:hover {
+  color: rgba(0, 0, 0, 0.6);
+}
+
 
 
 /* Style du blog grid */
@@ -158,15 +226,23 @@ z-index: 0;
   transition: all ease 0.5s;
 }
 
-#blog .blog-item:hover .img-fluid {
-  opacity : 0;
-  background-color: white;
-  transition: all ease 0.3s;
-}
-
 #blog .blog-item h4 {
     transition: all ease 0.2s;
 }
+
+#blog .blog-item p {
+  opacity : 0;
+  transition: all ease 0.2s;
+}
+
+@media (max-width: 992px) {
+#blog .blog-item:hover {
+  opacity : 0.8;
+}
+}
+
+
+@media (min-width: 992px) {
 
 #blog .blog-item:hover h4  {
   position : relative;
@@ -174,9 +250,10 @@ z-index: 0;
   transform: translate(0px, -120px);
 }
 
-#blog .blog-item p {
+#blog .blog-item:hover .img-fluid {
   opacity : 0;
-  transition: all ease 0.2s;
+  background-color: white;
+  transition: all ease 0.3s;
 }
 
 #blog .blog-item:hover p {
@@ -189,6 +266,17 @@ z-index: 0;
 
 }
 
+#blog .blog-item .blog-link .blog-hover .blog-hover-content {
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  height: 20px;
+  margin-top: -12px;
+  text-align: center;
+  color: white;
+}
+}
+
 
 
 #blog .blog-item .blog-link {
@@ -199,17 +287,6 @@ z-index: 0;
   margin-right: auto;
 }
 
-
-
-#blog .blog-item .blog-link .blog-hover .blog-hover-content {
-  font-size: 20px;
-  position: absolute;
-  top: 50%;
-  height: 20px;
-  margin-top: -12px;
-  text-align: center;
-  color: white;
-}
 
 
 
@@ -249,20 +326,19 @@ z-index: 0;
   object-fit: cover;
   width : 100%;
   height :120px;
-
 }
 
 #logodiv img {
     height: 60px;
 }
 
+
+
 .footer {
   padding: 25px 0;
   text-align: center;
   height : 20%;
 }
-
-
 
 
 /* Style de la page contact */
@@ -348,6 +424,7 @@ transition: 0.5s ease-out;
   background-repeat: no-repeat;;
   margin: 100px;
   transition: 0.5s ease-out;
+  background-position: bottom;
 }
 
 #a-propos .before{

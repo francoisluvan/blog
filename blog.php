@@ -4,7 +4,7 @@ session_start();
 //connexion base de données
 require ('./admin/config.php');
 //Récupère les données des articles dans la base de données
-$rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
+$rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id WHERE post.visible = 'visible'") or die( mysqli_error($link));
 
 
 
@@ -73,6 +73,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
           <div class="intro-heading text-uppercase">Blog</div>
           <div class="intro-lead-in">Les tendances de l'entreprenariat</div>
       </div>
+    </div>
     </header>
 
 
@@ -94,7 +95,11 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
         echo
           '<div class="col-md-4 col-sm-6 blog-item my-4" style="height:80%">
             <a class="blog-link stretched-link" style="text-decoration:none" href="article?p='.$post["id"].'">
-              <img class="img-fluid" src="'.$post['image'].'" alt="Bison Factory photo article blog">
+            <div class="img-fluid" style="background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('.$post["image"].');  background-repeat: no-repeat;
+              background-attachment: scroll;
+              background-position: center ;
+              background-size: cover; max-height:120px;">
+            </div>
           <div class="mb-4">
             <div class="blog-caption mb-3">
               <h4 style="color:black" display: -webkit-box;max-height: 120px;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">'.utf8_encode($post["title"]).'</h4>
@@ -120,22 +125,24 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
       <div class="container">
         <div class="row align-items-center">
           <div id="logodiv" class="col-md-4">
+            <a href="#">
             <img class="img-fluid mb-3" src="./images/logobisonfactory.png" alt="logo bison factory">
+            </a>
           </div>
           <div class="col-md-4">
             <ul class="list-inline social-buttons">
               <li class="list-inline-item">
-                <a href="#">
+                <a href="https://twitter.com/FactoryBison" target="_blank">
                   <i class="fab fa-twitter"></i>
                 </a>
               </li>
               <li class="list-inline-item">
-                <a href="#">
+                <a href="https://www.facebook.com/Bison-Factory-113583067056257" target="_blank">
                   <i class="fab fa-facebook-f"></i>
                 </a>
               </li>
               <li class="list-inline-item">
-                <a href="#">
+                <a href="https://www.linkedin.com/company/54290265" target="_blank">
                   <i class="fab fa-linkedin-in"></i>
                 </a>
               </li>
@@ -147,7 +154,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descri
               <a href='/admin/login' target="_blank"> se connecter</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">Mentions légales</a>
+                <a href="mentions-legales">Mentions légales</a>
               </li>
             </ul>
           </div>

@@ -15,7 +15,7 @@ else
 require ('./admin/config.php');
 //Récupère le contenu de l'article sélectionné
 $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.title, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id WHERE post.id = '$id'") or die( mysqli_error($link));
-
+$rqt2=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.title, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id WHERE post.id = '$id'") or die( mysqli_error($link));
 
 ?>
 
@@ -35,10 +35,23 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
           gtag('config', 'UA-168109459-1');
         </script>
         <meta charset="utf-8">
-
-        <title>Article du blog Bison Factory Conseil</title>
+        <title>
+        <?php
+          for ($i=0;$post2 = mysqli_fetch_array($rqt2);$i++) {
+                echo utf8_encode($post2['title']).'
+      </title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Article du blog de Bison Factory Conseil Bison Factory accompagne les entrepreneurs dans la création d'entreprise. Conseil en comptabilité gestion, marketing communication et développement web.">
+        <meta name="description" content="'.utf8_encode($post2['description']).'">
+        <meta property="og:image" content="'.utf8_encode($post2['image']).'">
+        <meta name="twitter:image" content="'.utf8_encode($post2['image']).'">
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content=""@BisonFactory" />
+        <meta name="twitter:title" content="'.utf8_encode($post2['title']).'" />
+        <meta name="twitter:description" content="'.utf8_encode($post2['description']).'" />
+        <meta name="twitter:image" content="'.utf8_encode($post2['image']).'" />
+      ';}?>
+
+
         <link rel="stylesheet" href="./style/bootstrap/bootstrap.min.css">
         <link rel="shortcut icon" href="https://bisonfactory.com/favicon.ico">
         <link href="./style/fontawesome/css/all.min.css" rel="stylesheet" type="text/css">
@@ -88,9 +101,12 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
             <div class="intro-text">
               <div class="intro-heading text-uppercase text-left" style="text-decoration:none;overflow-wrap: break-word;">
                   '.utf8_encode($post["title"]).'
+              </div>
               <div class="intro-lead-in mt-4" style="padding-bottom:3em">'.utf8_encode($post["soustitre"]).'</div>
+              </div>
           </div>
         </header>
+
 
 
 
@@ -100,7 +116,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
           <div class="container">
             <div class="row">
               <div class="header-post">
-                  <div class="fade-content"><a href="blog">Retour aux articles</a></div>
+                  <div class="fade-content"><a class="btn btn-dark" href="blog">Retour aux articles</a></div>
                   <div> publié dans la rubrique '.utf8_encode($post["name"]).', par '.$post["FK_adminuser"].' le '.$post["date"].'</div>
                   <div> Temps de lecture : '.$post["duree"].' min  </div>
               </div>
@@ -109,7 +125,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
                 <div class=" my-5">
                             <div class="content-post">
                                 <div class="content">'.$post["content"].'</div>
-                                <div class="fade-content"><a href="blog">Retour aux articles</a></div>
+                                <div class="fade-content"><a class="btn btn-dark" href="blog">Retour aux articles</a></div>
                            </div>
                         </div>';
                       }
@@ -125,22 +141,24 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
           <div class="container">
             <div class="row align-items-center">
               <div id="logodiv" class="col-md-4">
+                <a href="#">
                 <img class="img-fluid mb-3" src="./images/logobisonfactory.png" alt="logo bison factory">
+                </a>
               </div>
               <div class="col-md-4">
                 <ul class="list-inline social-buttons">
                   <li class="list-inline-item">
-                    <a href="#">
+                    <a href="https://twitter.com/FactoryBison" target="_blank">
                       <i class="fab fa-twitter"></i>
                     </a>
                   </li>
                   <li class="list-inline-item">
-                    <a href="#">
+                    <a href="https://www.facebook.com/Bison-Factory-113583067056257" target="_blank">
                       <i class="fab fa-facebook-f"></i>
                     </a>
                   </li>
                   <li class="list-inline-item">
-                    <a href="#">
+                <a href="https://www.linkedin.com/company/54290265" target="_blank">
                       <i class="fab fa-linkedin-in"></i>
                     </a>
                   </li>
@@ -152,7 +170,7 @@ $rqt=mysqli_query($link,"SELECT post.id, post.soustitre, post.description, post.
                   <a href='/admin/login' target="_blank"> se connecter</a>
                   </li>
                   <li class="list-inline-item">
-                    <a href="#">Mentions légales</a>
+                    <a href="mentions-legales">Mentions légales</a>
                   </li>
                 </ul>
               </div>

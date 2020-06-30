@@ -65,9 +65,6 @@ require ('config.php');
                 <a class="nav-link" href="stats.php">Stats</a>
               </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
-            </form>
           </div>
       </li>
     </ul>
@@ -80,8 +77,8 @@ require ('config.php');
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky" >
             <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link " href="admin.php">
+              <li class="nav-item mt-3">
+                <a class="nav-link" href="admin.php">
                   <span data-feather="home"></span>
                   Tableau de bord <span class="sr-only">(current)</span>
                 </a>

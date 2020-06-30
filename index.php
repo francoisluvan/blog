@@ -1,11 +1,11 @@
 <?php
-
+ini_set('display_errors',1);
 session_start();
 //connexion base de données
 require ('./admin/config.php');
 //Récupère les données des articles dans la base de données
-$rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
-$rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id ") or die( mysqli_error($link));
+$rqt=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id WHERE post.visible = 'visible'") or die( mysqli_error($link));
+$rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.description, post.FK_adminuser, category.name, post.content, post.duree, date, post.image FROM post INNER JOIN category ON post.FK_category = category.id WHERE post.visible = 'visible'") or die( mysqli_error($link));
 ?>
 
 
@@ -73,6 +73,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
           <div class="intro-heading text-uppercase text-left">Devenez entrepreneur.</div>
           <a class="btn btn-dark btn-xl text-uppercase js-scroll-trigger" href="#services">En savoir plus</a>
         </div>
+        <hr>
       </div>
     </header>
 
@@ -88,7 +89,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
         <div class="row text-center">
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
-              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-circle fa-stack-2x text-dark"></i>
               <i class="fas fa-chart-line fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">Comptabilité Gestion</h4>
@@ -96,7 +97,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
-              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-circle fa-stack-2x text-dark"></i>
               <i class="fas fa-bullhorn fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">Marketing Communication</h4>
@@ -104,13 +105,16 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
           </div>
           <div class="col-md-4">
             <span class="fa-stack fa-4x">
-              <i class="fas fa-circle fa-stack-2x text-primary"></i>
+              <i class="fas fa-circle fa-stack-2x text-dark"></i>
               <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
             </span>
             <h4 class="service-heading">Développement web</h4>
             <p class="text-muted">Un indispensable ! Le site internet de votre entreprise doit refléter vos valeurs. Nous vous aidons à assurer votre présence en ligne. </p>
           </div>
         </div>
+      </div>
+      <div class="container text-center text-dark mt-5">
+        <a class="btn btn-sm btn-dark" href="services"> Plus d'infos </a>
       </div>
     </section>
 
@@ -152,7 +156,11 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
 
                       <div class="col-md-4 col-sm-12 blog-item my-4" style="height:80%; min-width:300px">
                         <a class="blog-link stretched-link" style="text-decoration:none" href="article?p='.$post["id"].'">
-                          <img class="img-fluid" src="'.$post['image'].'" alt="Bison Factory photo article blog">
+                        <div class="img-fluid" style="background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('.$post["image"].');  background-repeat: no-repeat;
+                          background-attachment: scroll;
+                          background-position: center ;
+                          background-size: cover; max-height:120px;">
+                        </div>
                       <div class="mb-4">
                         <div class="blog-caption mb-3">
                           <h4 style="color:black">'.utf8_encode($post["title"]).'</h4>
@@ -178,7 +186,11 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
                     <div class="carousel-item">
                       <div class="col-md-4 col-sm-12 blog-item my-4" style="height:80%;min-width:300px">
                         <a class="blog-link stretched-link" style="text-decoration:none" href="article?p='.$post2["id"].'">
-                          <img class="img-fluid" src="'.$post2['image'].'" alt="Bison Factory photo article blog">
+                          <div class="img-fluid" style="background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('.$post2["image"].');  background-repeat: no-repeat;
+                            background-attachment: scroll;
+                            background-position: center ;
+                            background-size: cover; max-height:120px;">
+                          </div>
                       <div class="mb-4">
                         <div class="blog-caption mb-3">
                           <h4 style="color:black">'.utf8_encode($post2["title"]).'</h4>
@@ -216,8 +228,8 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
 
 
 
-      <div class="container text-center">
-        <a href="blog"> Tous les articles </a>
+      <div class="container text-center text-dark mt-5">
+        <a class="btn btn-sm btn-dark" href="blog"> Tous les articles </a>
       </div>
     </section>
 
@@ -252,22 +264,24 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
       <div class="container">
         <div class="row align-items-center">
           <div id="logodiv" class="col-md-4">
+            <a href="#">
             <img class="img-fluid mb-3" src="./images/logobisonfactory.png" alt="logo bison factory">
+            </a>
           </div>
           <div class="col-md-4">
             <ul class="list-inline social-buttons">
               <li class="list-inline-item">
-                <a href="#">
+                <a href="https://twitter.com/FactoryBison" target="_blank">
                   <i class="fab fa-twitter"></i>
                 </a>
               </li>
               <li class="list-inline-item">
-                <a href="#">
+                <a href="https://www.facebook.com/Bison-Factory-113583067056257" target="_blank">
                   <i class="fab fa-facebook-f"></i>
                 </a>
               </li>
               <li class="list-inline-item">
-                <a href="#">
+                <a href="https://www.linkedin.com/company/54290265" target="_blank">
                   <i class="fab fa-linkedin-in"></i>
                 </a>
               </li>
@@ -279,7 +293,7 @@ $rqt2=mysqli_query($link,"SELECT post.id, post.title, post.soustitre, post.descr
               <a href='/admin/login' target="_blank"> se connecter</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">Mentions légales</a>
+                <a href="mentions-legales">Mentions légales</a>
               </li>
             </ul>
           </div>
